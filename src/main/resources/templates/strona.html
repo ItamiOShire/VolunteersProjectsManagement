@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moja Strona Główna</title>
+</head>
+<body>
+<h1>TO JEST MOJA STRONA ŁACHMYTO</h1>
+
+
+<form name = "myForm" action="">
+    <label for="fname">First name:</label><br>
+    <input type="text" id="fname" name="fname" value="John"><br>
+    <label for="lname">Last name:</label><br>
+    <input type="text" id="lname" name="lname" value="Doe"><br>
+    <label for="gender">Last name:</label><br>
+    <select id="gender" name="gender">
+        <option>Male</option>
+        <option>Female</option>
+    </select><br>
+    <label>opcje</label><br>
+    <input type="checkbox" name="tak" id="tak"><br>
+    <input type="checkbox" name="nie" id="nie"><br>
+    <label for="radio1">radio1</label><br>
+    <input type="radio" name="radio1" id="radio1" value="radio1"><br>
+    <label for="radio2">radio2</label><br>
+    <input type="radio" name="radio1" id="radio2" value="radio2"><br><br>
+    <input type="button" value="Send" onclick = "send()">
+    <input type="button" value="Get" onclick = "get()">
+</form>
+
+<script>
+    async function send() {
+        const form = document.forms["myForm"];
+
+        const data = new FormData(form);
+
+        //const obj = Object.fromEntries(data.entries());
+
+        const obj = {
+            fname: form.fname.value,
+            lname: form.lname.value,
+        };
+        const obj2 = Object.fromEntries(data.entries());
+        console.log(obj2);
+        console.log(obj);
+
+        try {
+            const response = await fetch('http://localhost:8080/sendData', {
+              method: 'POST',
+              headers: {
+                  'Content-Type' : 'application/json',
+              } ,
+              body: JSON.stringify(obj2),
+            });
+
+            if(response.ok){
+                const result = await response.text();
+                console.log('Odpowiedz: ',result);
+            } else {
+                console.log("Blad odpowiedzi serwera")
+            }
+        } catch (error) {
+            console.log('Error: ', error)
+        }
+
+    }
+
+    async function get(){
+        try {
+            const response = await fetch('getData' ,{
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if(response.ok) {
+                const result = await response.json();
+                console.log('Otrzymano dane:', result.body);
+                /*for (const [key, val] of Object.entries(result)){
+                    console.log(key + ': ' + val);
+                }*/
+
+            } else {
+                console.log('Blad odpowiedzi serwera', response.body);
+            }
+
+        } catch (error) {
+            console.error('Error', error);
+        }
+    }
+
+
+
+</script>
+</body>
+</html>

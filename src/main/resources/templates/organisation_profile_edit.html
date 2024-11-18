@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/main-layout.css">
+    <link rel="stylesheet" href="/css/organisation-profile.css">
+    <link rel="stylesheet" href="/css/form-layout.css">
+    <link rel="stylesheet" href="/css/organisation-profile-edit.css">
+    <title>Strona główna</title>
+</head>
+<body onload = "get()">
+
+    <header class="header">
+
+        <div class="logo-container">
+            <img src="images/logo.png" alt="logo" class="logo">
+        </div>
+
+        <nav class="nav-menu">
+            <div class="nav-links-container">
+                <a href="" class="nav-link">O nas</a>
+                <a href="" class="nav-link">Projekty</a>
+                <a href="" class="nav-link">Organizacje</a>
+                <a href="" class="nav-link">Kontakt</a>
+            </div>
+            <div class="sign-in-up-buttons">
+                <a href="" class="nav-link">Stwórz projekt</a>
+                <a href="" class="nav-link">Profil</a>
+                <a href="" class="nav-link">Wyloguj</a>
+            </div>
+
+        </nav>
+
+    </header>
+
+    <hr class="section-line">
+
+    <main class="main">
+
+        
+        <section class="desc-form">
+
+            <form action="" class="form">
+
+                <label for="desc">Opis</label>
+                <textarea name="desc" id="desc"></textarea>
+
+                <label for="img">Zdjęcie</label>
+                <input type="file" name="img" id="img">
+
+                <button type="button" class="form-button">Zapisz</button>
+
+            </form>
+
+        </section>
+
+        <section class="profile-desc">
+
+            <div class="desc-container">
+
+                <div class="img-container">
+                    <img src="images/logo.png" alt="zdjęcie profilu organizacji" class="organisation-img">
+                </div>
+
+                <div class="text-container">
+                    <p class="organisation-desc">
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nam officia, neque tenetur ipsum perferendis nihil accusamus recusandae nulla sequi cupiditate at itaque laborum hic, ex quaerat deleniti architecto, quo eligendi!
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+        
+
+    </main>
+
+    <hr class="section-line">
+
+    <footer class="footer">
+
+        <div class="footer-col1"><img src="images/logo2mini.png" alt=""></div>
+        <div class="footer-col2">col2</div>
+        <div class="footer-col3">col3</div>
+        <div class="footer-col4">col4</div>
+
+    </footer>
+
+
+    <script>
+
+        var root1 = document.getElementsByClassName("projects-container")[0];
+        async function get() {
+            try {
+                const response = await fetch('getData', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    result.forEach(person => {
+
+                        const projectDiv = document.createElement("div");
+                        projectDiv.classList.add("project");
+
+                        const imgSection = document.createElement("section");
+                        imgSection.classList.add("img-container");
+
+                        const img = document.createElement("img");
+                        img.alt = "zdjecie";
+                        img.classList.add("project-img");
+
+                        const textSection = document.createElement("section");
+                        textSection.classList.add("text-container");
+
+                        textSection.innerHTML = ' <h2 class="project-tittle">' + person.firstName + ' </h2> <h4 class="project-short-desc">' + person.lastName + '</h4>';
+
+                        imgSection.appendChild(img);
+                        projectDiv.appendChild(imgSection);
+                        projectDiv.appendChild(textSection);
+                        root1.appendChild(projectDiv);
+
+
+                    })
+
+                } else {
+                    console.log('Blad odpowiedzi serwera', response.body);
+                }
+
+            } catch (error) {
+                console.error('Error', error);
+            }
+
+        }
+    </script>
+    
+</body>
+</html>

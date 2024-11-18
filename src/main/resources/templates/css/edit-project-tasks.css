@@ -1,0 +1,69 @@
+.main {
+    display:grid;
+    grid-template-columns: 50% 50%;
+}
+
+section.tasks-container, section.volunteers-container-in {
+    background-color: rgb(173, 178, 229);
+    background-image: linear-gradient(rgb(173, 178, 229),rgb(115,124,255) );
+    border-radius: 2em;
+    text-align: center;
+    height:100%;
+    position:relative;
+    box-shadow: 0.5em 0.5em 2em rgba(101,85,143,0.80);
+}
+
+.tasks, .volunteers {
+    background-color: antiquewhite;
+    border-radius: 2em 0 0 2em ;
+    margin:0 1em 1em 1em;
+    display:grid;
+    grid-template-columns: 80%;
+    justify-content: space-around;
+    gap:5px;
+    padding:5px 0;
+    overflow:auto;
+    height:200px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.task, .volunteer {
+    background-color: rgb(173, 178, 229);
+    background-image: linear-gradient(rgb(193, 196, 237),rgb(116, 180, 210) );
+    border-radius: 2em;
+    text-align: left;
+    padding: 0 0 2em 2em;
+    display:flex;
+}
+
+.task-controlls {
+    align-self: center;
+    justify-self: flex-end;
+}
+
+.task > div.task-desc {
+    flex:3 1 0;
+}
+
+.task > div.task-controlls {
+    flex: 1 1 0;
+}
+
+.task-desc {
+    width:200px;
+    word-break:normal;
+}
+
+section.volunteers-container {
+    background-color: white;
+    display:flex;
+}
+
+section.volunteers-container > section {
+    flex: 1 1 0;
+}
+
+section.tasks-choose-container {
+    align-self: center;
+    text-align: center;
+}

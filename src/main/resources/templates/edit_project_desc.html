@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
+    <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet"/>
+
+    <link rel="stylesheet" href="css/main-layout.css">
+    <link rel="stylesheet" href="css/form-layout.css">
+    <link rel="stylesheet" href="css/edit-project-desc.css">
+    <title>Strona główna</title>
+</head>
+<body>
+
+    <header class="header">
+
+        <div class="logo-container">
+            <img src="images/logo.png" alt="logo" class="logo">
+        </div>
+
+        <nav class="nav-menu">
+
+            <div class="nav-links-container">
+                <a href="" class="nav-link">O nas</a>
+                <a href="" class="nav-link">Projekty</a>
+                <a href="" class="nav-link">Organizacje</a>
+                <a href="" class="nav-link">Kontakt</a>
+                <a href="" class="nav-link">Stwórz projekt</a>
+            </div>
+            <div class="sign-in-up-buttons">
+                <a href="" class="nav-link">Profil</a>
+                <a href="" class="nav-link">Wyloguj</a>
+            </div>
+
+
+        </nav>
+
+    </header>
+
+    <hr class="section-line">
+
+    <section class="project-nav-container">
+        <button type="button" class="desc-managment active" >Projekt</button>
+        <button type="button" class="tasks-managment">Zadania</button>
+    </section>
+
+    <main class="main">
+
+        <section class="project-container">
+
+                <div class="img-container">
+
+                    <img src="images/logo2mini.jpg" alt="" class="project-img">
+
+                </div>
+
+            <div class="text-container">
+
+                <h2 class="project-tittle">Tytuł projektu</h2>
+
+                <h4 class="project-short-desc">Organizator: Organizacja 1 </h4>
+
+                <p class="project-long-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum voluptate cumque ducimus nesciunt sint ipsum nostrum provident, dolor voluptatum maiores quae praesentium. Repellat omnis exercitationem veritatis explicabo nesciunt consequuntur autem. Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero numquam sint consectetur illum, architecto iste possimus beatae blanditiis doloribus facere vitae consequatur nobis mollitia suscipit ipsum nisi quam nulla minima! Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odit, nobis natus! Reprehenderit, eaque quod? Impedit facere nostrum, assumenda recusandae, id optio necessitatibus, ad sapiente aliquid ratione esse ducimus cumque adipisci.</p>
+
+                <div class="tags-container">
+
+                    <h3 class="tag-highlight">Tagi:</h3>
+                    <p class="tags">Tag1</p>
+
+                </div>
+                
+
+            </div>
+
+        </section>
+
+        <section class="form-container">
+
+            <form action="" class="form">
+
+                <label for="tittle">Tytuł</label>
+                <input type="text" name="tittle" id="tittle" required>
+
+                <label for="desc">Opis projektu</label>
+                <textarea name="desc" id="desc" required></textarea>
+
+                <label for="tags">Tagi</label>
+                <select name="tags" id="tags" class="chosen-select" multiple>
+
+                    <option value="val1">val1</option>
+                    <option value="val2">val2</option>
+                    <option value="val3">val3</option>
+
+                </select>
+
+                <label for="img">Obrazek</label>
+                <input type="file" name="img" id="img">
+
+                <input type="submit" value="Dodaj projekt">
+
+            </form>
+
+        </section>
+        
+
+    </main>
+
+    <hr class="section-line">
+
+    <footer class="footer">
+
+        <div class="footer-col1"><img src="images/logo2mini.png" alt=""></div>
+        <div class="footer-col2">col2</div>
+        <div class="footer-col3">col3</div>
+        <div class="footer-col4">col4</div>
+
+    </footer>
+
+    <script>
+
+        $(".chosen-select").chosen();
+        document.getElementById('tags_chosen').style.width = "";
+        document.getElementsByClassName('chosen-search-input')[0].setAttribute('value',"Wybierz tagi");
+        document.getElementsByClassName('chosen-search-input')[0].setAttribute('placeholder',"chosen-search-input");
+
+    </script>
+    
+</body>
+</html>

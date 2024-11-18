@@ -1,0 +1,21 @@
+
+.text-container {
+    background-color: rgba(115,124,211,0.59);
+    background-image: linear-gradient(rgb(173, 178, 229),rgb(115,124,255) );
+    display:inline-block;
+    margin-top:2em;
+    margin-left:9em;
+    padding:2.5em;
+    border-radius: 4em;
+}
+
+.desc-short {
+    margin-left:11em;
+    color:black;
+}
+
+.form-container{
+    width:25%;
+    margin:auto;
+}
+

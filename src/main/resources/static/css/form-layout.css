@@ -1,0 +1,38 @@
+.form {
+    background-color: rgb(173, 178, 229);
+    background-image: linear-gradient(rgb(173, 178, 229),rgb(115,124,255) );
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding:1em;
+    border-radius: 1.5em;
+    flex-wrap: wrap;
+    box-shadow: 0.5em 0.5em 2em rgba(101,85,143,0.80);
+}
+
+.form  input, .form > select{
+    width:60%;
+    height:2em;
+    border-radius:0.5em;
+    margin:0.5em 0;
+    border:0;
+    box-shadow:inset rgba(0, 0, 0, 0.31) 3px 2px 5px, rgba(0, 0, 0, 0.23) 0px 0px 0px 0px inset;
+}
+
+.form > input[type="submit"] {
+    color:white;
+    background-color: rgba(101,85,143,1.0);
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px -7px 10px 0px inset;
+    transition: background-color 0.3s ease;
+
+}
+
+.form > input[type="submit"]:hover {
+    background-color: rgb(128, 107, 181);
+}
+
+.form > label {
+    width:60%;
+}
