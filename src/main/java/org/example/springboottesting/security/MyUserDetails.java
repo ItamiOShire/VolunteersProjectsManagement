@@ -21,6 +21,10 @@ public class MyUserDetails implements UserDetails {
         return user.getRole();
     }
 
+    public int getId() {
+        return user.getId();
+    }
+
     @Override
     public String getUsername() {
         return user.getEmail();
