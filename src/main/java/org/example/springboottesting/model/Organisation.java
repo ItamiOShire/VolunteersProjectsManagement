@@ -1,10 +1,7 @@
 package org.example.springboottesting.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Organisation {
@@ -17,7 +14,8 @@ public class Organisation {
     private String orgName;
 
     @JsonProperty("krs")
-    private int KRSNumber;
+    @Column(name = "KRS_number")
+    private int krsNumber;
 
     private String street;
 
@@ -62,11 +60,11 @@ public class Organisation {
     }
 
     public int getKRSNumber() {
-        return KRSNumber;
+        return krsNumber;
     }
 
     public void setKRSNumber(int KRSNumber) {
-        this.KRSNumber = KRSNumber;
+        this.krsNumber = KRSNumber;
     }
 
     public String getStreet() {

@@ -44,7 +44,7 @@ public class RegisterUserService {
         return usersRepository.save(user);
     }
 
-
+    @Transactional
     public Users registerOrganisation(Organisation organisation, Users user) {
 
         if (usersRepository.existsByEmail(user.getEmail())) {

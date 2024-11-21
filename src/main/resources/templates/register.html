@@ -172,7 +172,7 @@
                 '<label for="telnum">Numer telefonu</label>' +
                 '<input type="tel" name="phone_number" id="telnum" required>' +
 
-                '<input type="submit" value="Zarejestruj się">' +
+                '<button type="button" onclick = "registerOrganisation()">Zarejestruj się</button>' +
 
             '</form>';
 
@@ -202,6 +202,44 @@
 
             try {
                 const response = await fetch('http://localhost:8080/api/register/volunteer', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type' : 'application/json',
+                    } ,
+                    body: JSON.stringify(body),
+                });
+
+                if(response.ok){
+                    const result = await response.text();
+                    console.log('Odpowiedz: ',result);
+                } else {
+                    console.log("Blad odpowiedzi serwera")
+                }
+            } catch (error) {
+                console.log('Error: ', error)
+            }
+        }
+
+        async function registerOrganisation() {
+
+            const form = document.forms['orgForm'];
+
+            const orgData = new FormData(form);
+
+            const organisation = Object.fromEntries(orgData.entries());
+
+            const user = {
+                email: form.email.value,
+                password: form.password.value,
+                role: "organisation"
+            }
+
+            const body = {organisation, user};
+
+            console.log(body);
+
+            try {
+                const response = await fetch('http://localhost:8080/api/register/organisation', {
                     method: 'POST',
                     headers: {
                         'Content-Type' : 'application/json',
