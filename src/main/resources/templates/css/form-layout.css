@@ -41,7 +41,7 @@
     box-shadow:inset rgba(0, 0, 0, 0.31) 3px 2px 5px, rgba(0, 0, 0, 0.23) 0px 0px 0px 0px inset;
 }
 
-.form > input[type="submit"], .form > button{
+.form > input[type="submit"], .form > button, form button{
     color:white;
     background-color: rgba(101,85,143,1.0);
     cursor: pointer;
