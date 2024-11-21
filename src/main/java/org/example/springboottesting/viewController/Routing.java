@@ -18,7 +18,7 @@ public class Routing implements WebMvcConfigurer {
         registry.addViewController("/organisation/projects/edit/desc/{id}").setViewName("edit_project_desc");
         registry.addViewController("/organisation/projects/edit/tasks/{id}").setViewName("edit_project_tasks");
         registry.addViewController("/organisation/profile").setViewName("organisation_profile");
-        registry.addViewController("/organisation/profile/project/{id}").setViewName("organisation_profile_edit");
+        registry.addViewController("/organisation/profile/edit/desc").setViewName("organisation_profile_edit");
         registry.addViewController("/organisation/project/create").setViewName("create_project");
     }
 }
