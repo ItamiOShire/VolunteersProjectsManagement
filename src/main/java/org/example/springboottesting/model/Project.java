@@ -1,10 +1,10 @@
 package org.example.springboottesting.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Project {
@@ -16,11 +16,29 @@ public class Project {
     private String title;
 
     @JsonProperty("desc-long")
+    @Column(name = "descr")
     private String desc;
 
     private String imgPath;
 
+    @Column(name="organisationID")
     private int organisationId;
+
+    @ManyToMany
+    @JoinTable(
+            name = "Project_Tag",
+            joinColumns = @JoinColumn(name = "projectID"),
+            inverseJoinColumns = @JoinColumn(name = "tagID")
+    )
+    private List<Tag> tags;
+
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
+    }
 
     public int getId() {
         return id;
