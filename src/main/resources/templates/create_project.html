@@ -90,7 +90,7 @@
                     <input type="text" name="task-title" id="task-title" required>
 
                     <label for="task-desc">Opis</label>
-                    <input type="text" name="task-desc" id="task-desc">
+                    <textarea name="task-desc" id="task-desc"></textarea>
 
                     <label for="priority">Priorytet</label>
                     <select name="priority" id="priority">
@@ -109,20 +109,20 @@
         
          <section class="form-container">
 
-            <form action="" class="form">
+            <form action="/api/project/create" method = "POST" class="form" enctype="multipart/form-data">
 
                 <label for="title">Tytuł</label>
                 <input type="text" name="title" id="title" required>
 
                 <label for="desc-long">Opis projektu</label>
-                <input type="text" name="desc-long" id="desc-long" required>
+                <textarea name="desc-long" id="desc-long" required></textarea>
 
                 <label for="tags">Tagi</label>
                 <select name="tags" id="tags" class="chosen-select" multiple>
 
-                    <option value="val1">val1</option>
-                    <option value="val2">val2</option>
-                    <option value="val3">val3</option>
+                    <option value="1">Edukacja</option>
+                    <option value="2">Ochrona_srodowiska</option>
+                    <option value="3">Zdrowie_i_pomoc_spoleczna</option>
 
                 </select>
 
