@@ -3,6 +3,8 @@ package org.example.springboottesting.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+
 @Entity
 public class Task {
 
@@ -20,6 +22,16 @@ public class Task {
     private int priorityId;
 
     private int projectId;
+
+    private LocalDate deadline;
+
+    public LocalDate getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(LocalDate deadline) {
+        this.deadline = deadline;
+    }
 
     public int getId() {
         return id;
