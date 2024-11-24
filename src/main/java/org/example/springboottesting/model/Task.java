@@ -19,8 +19,11 @@ public class Task {
     @Column(name = "descr")
     private String desc;
 
+    @JsonProperty("priority")
+    @Column(name = "priorityID")
     private int priorityId;
 
+    @Column(name = "projectID")
     private int projectId;
 
     private LocalDate deadline;
