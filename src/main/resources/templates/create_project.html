@@ -48,7 +48,7 @@
 
         
 
-         <section class="form-container">
+         <section class="form-container" id = "form-container">
 
             <form class="form" name="projectForm">
 
@@ -62,8 +62,8 @@
                 <select name="tags" id="tags" class="chosen-select" multiple>
 
                     <option value="1">Edukacja</option>
-                    <option value="2">Ochrona_srodowiska</option>
-                    <option value="3">Zdrowie_i_pomoc_spoleczna</option>
+                    <option value="2">Ochrona srodowiska</option>
+                    <option value="3">Zdrowie i pomoc spoleczna</option>
 
                 </select>
 
@@ -76,9 +76,11 @@
 
         </section>
 
-        <section class="tasks-container" id = "tasks-container" style="display:none">
-    
-            <div class="tasks">
+        <section class="tasks-container" id = "tasks-container" >
+
+           
+
+            <div class="tasks" id = "tasks">
 
                 <h1>Lista zadań</h1>
 
@@ -114,30 +116,36 @@
 
             </div>
 
-            <form action="" class="form">
+            <form action="" class="form" name = "taskForm">
 
                 <label for="task-title">Tytuł</label>
                 <input type="text" name="task-title" id="task-title" required>
 
                 <label for="task-desc">Opis</label>
-                <textarea name="task-desc" id="task-desc"></textarea>
+                <textarea name="task-desc" id="task-desc" required></textarea>
 
                 <label for="priority">Priorytet</label>
-                <select name="priority" id="priority">
+                <select name="priority" id="priority" required>
 
-                    <option value="val1">val1</option>
-                    <option value="val2">val2</option>
-                    <option value="val3">val3</option>
+                    <option value="1">Niski</option>
+                    <option value="2">Umiarkowany</option>
+                    <option value="3">Średni</option>
+                    <option value="4">Wysoki</option>
 
                 </select>
 
-                <input type="submit" value="Dodaj zadanie do listy zadań">
+                <label for="deadline">Termin zadania</label>
+                <input type="date" name="deadline" id="deadline" required>
+
+                <button type="button" onclick="addTasksToList()">Dodaj zadanie do listy</button>
 
             </form>
 
-            <button type="button" id="create-project-button" style="width:20%">Gotowe</button>
+            <button type="button" id="create-tasks-button" onclick="saveTasks()" style="width:20%">Gotowe</button>
 
     </section>
+
+    <button type="button" onclick = "getId()">id</button>
 
     </main>
 
@@ -159,6 +167,8 @@
         document.getElementsByClassName('chosen-search-input')[0].setAttribute('value',"Wybierz tagi");
         document.getElementsByClassName('chosen-search-input')[0].setAttribute('placeholder',"Wybierz tagi");
 
+        const tasks = [];
+
         async function createProject(){
 
             const form = document.forms["projectForm"];
@@ -179,6 +189,8 @@
                 const result = await response.text();
                 console.log(result);
                 document.getElementById("tasks-container").style.display = "grid";
+                document.getElementById("create-tasks-button").dataset.projectId = result;
+                document.getElementById("form-container").style.display = "none";
 
             } else {
                 console.log("Błąd odpowiedzi serwera ", (await response).status);
@@ -188,6 +200,89 @@
         }
 
         }
+
+        function addTasksToList() {
+
+            const form = document.forms["taskForm"];
+
+            const formData = new FormData(form);
+
+            const data = Object.fromEntries(formData.entries());
+
+            data.projectId = document.getElementById("create-tasks-button").dataset['projectId'];
+
+            console.log(data);
+
+            tasks.push(data);
+
+            const root = document.getElementById("tasks");
+
+            const taskDiv = document.createElement("div");
+            taskDiv.classList.add("task");
+
+            const taskHeader = document.createElement("h2");
+            taskHeader.classList.add("task-tittle");
+            taskHeader.innerText = data["task-title"];
+
+            const taskDesc = document.createElement("p");
+            taskDesc.classList.add("task-desc");
+            taskDesc.innerText = data["task-desc"];
+
+            const taskPriority = document.createElement("span");
+            taskPriority.classList.add("priority");
+            taskPriority.innerText = data["priority"];
+
+            taskDiv.appendChild(taskHeader);
+            taskDiv.appendChild(taskDesc);
+            taskDiv.appendChild(taskPriority);
+            root.append(taskDiv);
+
+
+            console.log(tasks);
+        }
+
+        async function saveTasks() {
+
+
+            try {
+
+                const response = await fetch("http://localhost:8080/api/task/save", {
+                    method: 'POST',
+                    headers: {
+                        'Content-type': 'application/json'
+                    },
+                    body: JSON.stringify(tasks)
+                });
+
+                if (response.ok) {
+                    const result = await response.text();
+                    console.log('Odpowiedz: ',result);
+                } else {
+                    console.log('Blad serwera: ', await response.text());
+                }
+
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        async function getId(){
+        try {
+            const response = await fetch("http://localhost:8080/api/login/getId", {
+                method: "GET",
+                'Content-Type': 'application/json',
+            });
+
+            if (response.ok){
+                const result = await response.text();
+                console.log(result);
+            } else {
+                console.log("cos nie poszlo");
+            }
+        } catch (error){
+            console.log(error)
+        }
+    }
 
     </script>
     
