@@ -32,6 +32,8 @@ public class Project {
     )
     private List<Tag> tags;
 
+
+
     public List<Tag> getTags() {
         return tags;
     }
@@ -78,5 +80,10 @@ public class Project {
 
     public void setOrganisationId(int organisationId) {
         this.organisationId = organisationId;
+    }
+
+    @Override
+    public String toString() {
+        return "Project [id=" + id + ", title=" + title + ", desc=" + desc + ", imgPath=" + imgPath + ", tags=" + tags + "]";
     }
 }
