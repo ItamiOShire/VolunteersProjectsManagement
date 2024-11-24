@@ -1,6 +1,5 @@
 package org.example.springboottesting.service;
 
-import org.example.springboottesting.model.ETag;
 import org.example.springboottesting.model.Project;
 import org.example.springboottesting.model.Tag;
 import org.example.springboottesting.repository.ProjectRepository;
@@ -8,10 +7,7 @@ import org.example.springboottesting.repository.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class ProjectService {
@@ -45,4 +41,19 @@ public class ProjectService {
 
         return createdProject;
     }
+
+    public List<Project> getAllProjects() {
+
+        List<Project> projects = projectRepository.findAll();
+
+        return projectRepository.findAll();
+    }
+
+    public List<Project> getProjectsByOrganisationId(int id) {
+
+        return projectRepository.findByOrganisationId(id);
+    }
+
+
+
 }

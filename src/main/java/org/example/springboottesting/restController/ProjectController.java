@@ -55,4 +55,21 @@ public class ProjectController {
 
         return ResponseEntity.badRequest().body("nie udalo sie stworzyc projektu");
     }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<Project>> getAll() {
+        List<Project> projects = projectService.getAllProjects();
+
+        return ResponseEntity.ok(projects);
+    }
+
+    @GetMapping("organisation/all")
+    public ResponseEntity<List<Project>> getAllOrganisation(HttpSession session) {
+        List<Project> projects = projectService.getProjectsByOrganisationId(
+                Integer.parseInt(session.getAttribute("id").toString()));
+        for (Project project : projects) {
+            System.out.println(project);
+        }
+        return ResponseEntity.ok(projects);
+    }
 }
