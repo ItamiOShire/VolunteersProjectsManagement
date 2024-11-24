@@ -1,10 +1,7 @@
 package org.example.springboottesting.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Task {
@@ -17,6 +14,7 @@ public class Task {
     private String title;
 
     @JsonProperty("task-desc")
+    @Column(name = "descr")
     private String desc;
 
     private int priorityId;

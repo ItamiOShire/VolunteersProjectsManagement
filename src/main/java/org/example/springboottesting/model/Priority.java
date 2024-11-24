@@ -1,10 +1,16 @@
 package org.example.springboottesting.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
+@Entity
 public class Priority {
 
+    @Id
     private int id;
 
+    @Column(name = "descr")
     private String desc;
 
     public int getId() {
