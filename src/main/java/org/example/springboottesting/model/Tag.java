@@ -1,5 +1,6 @@
 package org.example.springboottesting.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import net.bytebuddy.utility.nullability.MaybeNull;
 
@@ -16,7 +17,8 @@ public class Tag {
     @Column(name="descr")
     private String desc;
 
-    @ManyToMany(mappedBy = "tags")
+    @ManyToMany(mappedBy = "tags", fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Project> projects;
 
     public int getId() {
