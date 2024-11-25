@@ -23,14 +23,31 @@ div.project {
     object-fit: cover;
 }
 
-.project-join-button {
+.text-container {
+    position:relative;
+}
+
+.project-join-button, .project-desc-button {
     background-color: rgb(101, 85, 143);
     border:0;
     height:3rem;
     width:8rem;
     border-radius: 2em;
     color:white;
-    margin-top:1em;
+    position:absolute;
+    right:0;
+    bottom:0;
+    cursor: pointer;
+}
+
+.project-short-desc {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    -webkit-line-clamp: 5;
+    text-overflow: ellipsis; 
+    max-height: 300px;
+    white-space: normal;
 }
 
 .searchbar-container {

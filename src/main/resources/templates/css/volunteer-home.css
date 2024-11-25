@@ -47,6 +47,7 @@ div.project {
     -webkit-line-clamp: 5;      /* Liczba widocznych linii */
     text-overflow: ellipsis; 
     max-height: 300px;
+    white-space: normal;
 }
 
 .searchbar-container {
