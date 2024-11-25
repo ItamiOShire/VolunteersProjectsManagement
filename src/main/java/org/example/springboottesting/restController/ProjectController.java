@@ -36,10 +36,12 @@ public class ProjectController {
                                  @RequestParam("tags") List<Long> tags,
                                  HttpSession session) {
 
-        String filePath = "D:\\school\\sem7\\inzynierka\\temp\\SpringBootTesting\\src\\main\\resources\\static\\images\\" + UUID.randomUUID().toString() + ".jpg";
+        String fileName = UUID.randomUUID().toString() + ".jpg";
+        String filePath = "D:\\school\\sem7\\inzynierka\\temp\\SpringBootTesting\\src\\main\\resources\\static\\images\\" +fileName;
+        String filePathToWrite = "\\images\\" + fileName;
         Project createdProject = projectService.createProject(tittle,
                 desc,
-                filePath,
+                filePathToWrite,
                 tags,
                 Integer.parseInt(session.getAttribute("id").toString()));
 
