@@ -18,10 +18,10 @@ div.project {
 }
 
 .project-img {
-    width:80%;
-    height: 80%;
+    width:min(300px, 100%);
+    height:max(300px, 100%);
     border-radius: 2em;
-    object-fit: cover;
+    object-fit: fill;
 }
 
 .text-container {
@@ -42,10 +42,10 @@ div.project {
 }
 
 .project-short-desc {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    -webkit-line-clamp: 5;
+    display: -webkit-box;       /* Użycie boxów dla ograniczenia linii */
+    -webkit-box-orient: vertical; /* Ustawienie kierunku */
+    overflow: hidden;           /* Ukrywa nadmiar tekstu */
+    -webkit-line-clamp: 5;      /* Liczba widocznych linii */
     text-overflow: ellipsis; 
     max-height: 300px;
     white-space: normal;
