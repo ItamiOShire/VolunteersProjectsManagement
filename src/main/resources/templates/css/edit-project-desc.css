@@ -29,10 +29,10 @@ section.project-container {
 }
 
 .project-img {
-    width:100%;
-    height:100%;
-    object-fit: cover;
-    border-radius:2em;
+    width:min(300px, 100%);
+    height:min(300px, 100%);
+    border-radius: 2em;
+    object-fit: contain;
 }
 
 .project-short-desc{

@@ -19,6 +19,7 @@ div.project {
 
 .project-img {
     width:80%;
+    height: 80%;
     border-radius: 2em;
     object-fit: cover;
 }
