@@ -55,11 +55,21 @@
                 <section class="text-container">
 
                     <h2 class="project-tittle">Projekt 1</h2>
-                    <h4 class="project-short-desc">Krótki opis projektu</h4>
+                    <p class="project-short-desc">Krótki opis projektuKrótki opis projektuKrótki opis projektuKrótki opis projektu
+                        Krótki opis projektuKrótki opis projektuKrótki opis projektuKrótki opis projektuKrótki opis projektuKrótki opis projektu
+                        Krótki opis projektuKrótki opis projektuKrótki opis projektu
+                        Krótki opis projektuKrótki opis projektuKrótki opis projektuKrótki opis projektuKrótki opis projektu
+                        Krótki opis projektuKrótki opis projektuKrótki opis projektuKrótki opis projektu
+                        Krótki opis projektuKrótki opis projektuKrótki opis projektuKrótki opis projektu
+                    </p>
+
+                    <h4 class="tags">Tagi: Edukacja, Środowisko i ekologia</h4>
+
+                    <button type="button" class="project-join-button">Szczegóły</button>
 
                 </section>
 
-                <button type="button" class="project-join-button" object-id="1">Szczegóły</button>
+                
 
             </div>
 
@@ -72,11 +82,21 @@
                 <section class="text-container">
 
                     <h2 class="project-tittle">Projekt 1</h2>
-                    <h4 class="project-short-desc">Krótki opis projektu</h4>
+                    <p class="project-short-desc">Krótki opis projektuKrótki opis projektuKrótki opis projektuKrótki opis projektu
+                        Krótki opis projektuKrótki opis projektuKrótki opis projektuKrótki opis projektuKrótki opis projektuKrótki opis projektu
+                        Krótki opis projektuKrótki opis projektuKrótki opis projektu
+                        Krótki opis projektuKrótki opis projektuKrótki opis projektuKrótki opis projektuKrótki opis projektu
+                        Krótki opis projektuKrótki opis projektuKrótki opis projektuKrótki opis projektu
+                        Krótki opis projektuKrótki opis projektuKrótki opis projektuKrótki opis projektu
+                    </p>
+
+                    <h4 class="tags">Tagi: Edukacja, Środowisko i ekologia</h4>
+
+                    <button type="button" class="project-desc-button">Szczegóły</button>
 
                 </section>
 
-                <button type="button" class="project-join-button">Szczegóły</button>
+                
 
             </div>
 
@@ -120,6 +140,7 @@
                         imgSection.classList.add("img-container");
 
                         const img = document.createElement("img");
+                        img.src = project.imgPath
                         img.alt = "zdjecie";
                         img.classList.add("project-img");
 
@@ -128,13 +149,17 @@
 
                         textSection.innerHTML = ' <h2 class="project-tittle">' + project.title + 
                             ' </h2> <h4 class="project-short-desc">' + project.desc + '</h4>';
+                            
+                        const projectButton = document.createElement("button");
+                        projectButton.type = "button";
+                        projectButton.classList.add("project-desc-button")
+                        
 
                         imgSection.appendChild(img);
+                        textSection.appendChild(projectButton);
                         projectDiv.appendChild(imgSection);
                         projectDiv.appendChild(textSection);
                         root1.appendChild(projectDiv);
-
-
                     })
 
                 } else {
