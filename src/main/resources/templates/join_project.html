@@ -38,29 +38,6 @@
 
         <section class="project-container">
 
-                <div class="img-container">
-
-                    <img src="images/strona-glowna.jfif" alt="" class="project-img">
-
-                </div>
-
-            <div class="text-container">
-
-                <h2 class="project-tittle">Tytuł projektu</h2>
-
-                <h4 class="project-short-desc">Organizator: Organizacja 1 </h4>
-
-                <p class="project-long-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum voluptate cumque ducimus nesciunt sint ipsum nostrum provident, dolor voluptatum maiores quae praesentium. Repellat omnis exercitationem veritatis explicabo nesciunt consequuntur autem. Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero numquam sint consectetur illum, architecto iste possimus beatae blanditiis doloribus facere vitae consequatur nobis mollitia suscipit ipsum nisi quam nulla minima! Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odit, nobis natus! Reprehenderit, eaque quod? Impedit facere nostrum, assumenda recusandae, id optio necessitatibus, ad sapiente aliquid ratione esse ducimus cumque adipisci.</p>
-
-                <div class="tags-container">
-
-                    <h3 class="tag-highlight">Tagi:</h3>
-                    <p class="tags">Tag1</p>
-
-                </div>
-                
-
-            </div>
 
         </section>
 
@@ -126,7 +103,54 @@
                 });
 
                 if (response.ok) {
-                    console.log(await response.json());
+                    const project = await response.json();
+                    console.log(project);
+                    const imgContainer = document.createElement("div");
+                    imgContainer.classList.add("img-container");
+
+                    const img = document.createElement("img");
+                    img.src = project.imgPath;
+                    img.alt = "zdjecie";
+                    img.classList.add("project-img")
+
+                    const textContainer = document.createElement("div");
+                    textContainer.classList.add("text-container");
+
+                    const projectTitle = document.createElement("h2");
+                    projectTitle.classList.add("project-tittle");
+                    projectTitle.innerHTML = project.title;
+
+                    const projectShortDesc = document.createElement("h4");
+                    projectShortDesc.classList.add("project-short-desc");
+                    projectShortDesc.innerHTML = "Organizacja - " + project.orgName;
+
+                    const projectLongDesc = document.createElement("p");
+                    projectLongDesc.classList.add("project-long-desc");
+                    projectLongDesc.innerHTML = project.desc;
+
+                    const tagsContainer = document.createElement("div");
+                    tagsContainer.classList.add("tags-container");
+
+                    const tags = document.createElement("p");
+                    tags.classList.add("tags");
+
+                    for (let x in project.tags) {
+                        tags.innerHTML += "[" + project.tags[x].desc + "] ";
+                    }
+
+                    imgContainer.appendChild(img);
+
+                    textContainer.appendChild(projectTitle);
+                    textContainer.appendChild(projectShortDesc);
+                    textContainer.appendChild(projectLongDesc);
+
+                    tagsContainer.appendChild(tags);
+
+                    textContainer.appendChild(tagsContainer);
+
+                    root.appendChild(imgContainer);
+                    root.appendChild(textContainer);
+
                 } else {
                     console.log("blad serwera");
                 }
