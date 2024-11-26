@@ -2,6 +2,7 @@ package org.example.springboottesting.restController;
 
 import jakarta.servlet.http.HttpSession;
 import org.example.springboottesting.model.Project;
+import org.example.springboottesting.model.ProjectDTO;
 import org.example.springboottesting.model.Tag;
 import org.example.springboottesting.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,5 +74,12 @@ public class ProjectController {
             System.out.println(project);
         }
         return ResponseEntity.ok(projects);
+    }
+
+    @GetMapping("/volunteer/{id}")
+    public ResponseEntity<ProjectDTO> getProject(@PathVariable Long id) {
+
+        ProjectDTO project = projectService.getProjectById(id);
+        return ResponseEntity.ok(project);
     }
 }
