@@ -1,5 +1,6 @@
 package org.example.springboottesting.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
@@ -32,7 +33,17 @@ public class Project {
     )
     private List<Tag> tags;
 
+    @ManyToMany(mappedBy = "projects", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Volunteer> volunteers;
 
+    public List<Volunteer> getVolunteers() {
+        return volunteers;
+    }
+
+    public void setVolunteers(List<Volunteer> volunteers) {
+        this.volunteers = volunteers;
+    }
 
     public List<Tag> getTags() {
         return tags;

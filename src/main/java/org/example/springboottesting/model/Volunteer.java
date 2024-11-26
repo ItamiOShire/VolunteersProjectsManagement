@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 public class Volunteer {
@@ -27,6 +28,38 @@ public class Volunteer {
     private String email;
 
     private String password;
+
+    @ManyToMany
+    @JoinTable(
+            name = "Volunteer_Project",
+            joinColumns = @JoinColumn(name = "volunteerID"),
+            inverseJoinColumns = @JoinColumn(name = "projectID")
+    )
+    private List<Project> projects;
+
+    @ManyToMany
+    @JoinTable(
+            name = "Volunteer_Task",
+            joinColumns = @JoinColumn(name = "volunteerID"),
+            inverseJoinColumns = @JoinColumn(name = "taskID")
+    )
+    private List<Task> tasks;
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    public List<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(List<Project> projects) {
+        this.projects = projects;
+    }
 
     public int getId() {
         return id;

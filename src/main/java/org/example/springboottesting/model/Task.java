@@ -1,9 +1,11 @@
 package org.example.springboottesting.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 public class Task {
@@ -27,6 +29,18 @@ public class Task {
     private int projectId;
 
     private LocalDate deadline;
+
+    @ManyToMany(mappedBy = "tasks", fetch = FetchType.EAGER)
+    @JsonIgnore
+    private List<Volunteer> volunteers;
+
+    public List<Volunteer> getVolunteers() {
+        return volunteers;
+    }
+
+    public void setVolunteers(List<Volunteer> volunteers) {
+        this.volunteers = volunteers;
+    }
 
     public LocalDate getDeadline() {
         return deadline;
