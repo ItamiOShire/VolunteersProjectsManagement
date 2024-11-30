@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/css/organisation-profile.css">
     <title>Strona główna</title>
 </head>
-<body onload = "get()">
+<body onload = "getOrganisationData()">
 
     <header class="header">
 
@@ -41,44 +41,15 @@
 
             <div class="profile-container">
 
-                <div class="profile-header">
+                <div class="profile-header" id = "profile-header">
 
-                    <h1 class="organisation-name">Organizacja</h1>
-                    <h4 class="organisation-type">Typ organizacji</h4>
+                    
 
                 </div>
 
-                <div class="profile-data">
+                <div class="profile-data" id = "profile-data">
 
-                    <div class="fname-lname">
-                        <h2>Imię i nazwisko właściciela</h2>
-                        <h4>Jan Kowalski</h4>
-                    </div>
 
-                    <div class="email">
-                        <h2>Email</h2>
-                        <h4>test@test.com</h4>
-                    </div>
-
-                    <div class="phone-number">
-                        <h2>Nr telefonu</h2>
-                        <h4>123456789</h4>
-                    </div>
-
-                    <div class="adress">
-                        <h2>Adres</h2>
-                        <h4>Kwiatowa 34, 32-059 Kraków</h4>
-                    </div>
-
-                    <div class="krs-numbner">
-                        <h2>Nr KRS</h2>
-                        <h4>1234567890</h4>
-                    </div>
-
-                    <div class="temp">
-                        <h2>Temp</h2>
-                        <h4>temp</h4>
-                    </div>
 
                 </div>
 
@@ -91,7 +62,7 @@
             <div class="desc-container">
 
                 <div class="img-container">
-                    <img src="images/logo.png" alt="zdjęcie profilu organizacji" class="organisation-img">
+                    <img src="/images/logo.png" alt="zdjęcie profilu organizacji" class="organisation-img">
                 </div>
 
                 <div class="text-container">
@@ -113,7 +84,7 @@
 
     <footer class="footer">
 
-        <div class="footer-col1"><img src="images/logo2mini.png" alt=""></div>
+        <div class="footer-col1"><img src="/images/logo2mini.png" alt=""></div>
         <div class="footer-col2">col2</div>
         <div class="footer-col3">col3</div>
         <div class="footer-col4">col4</div>
@@ -121,12 +92,34 @@
     </footer>
 
 
-    <script>
+    <script defer>
 
-        var root1 = document.getElementsByClassName("projects-container")[0];
-        async function get() {
+        const root = document.getElementById("profile-data");
+
+        const rootHeader = document.getElementById("profile-header");
+        
+        async function getOrganisationData() {
+
+            const profileData = [
+                "organisation-name",
+                "organisation-type",
+                "fname-lname", 
+                "email", 
+                "phone-number", 
+                "adress", 
+                "krs-number",
+            ]
+
+            const headlines = [
+                "Imię i nazwisko właściciela",
+                "Email",
+                "Nr telefonu",
+                "Adres",
+                "Numer KRS"
+            ]
+
             try {
-                const response = await fetch('getData', {
+                const response = await fetch('http://localhost:8080/api/organisation/', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -135,30 +128,53 @@
 
                 if (response.ok) {
                     const result = await response.json();
-                    result.forEach(person => {
+                    console.log(result);
+                    let i = 0;
+                    let j = 0;
+                    
+                    for (const x in result) {
+                        console.log(i);
+                        if (i === 0) {
 
-                        const projectDiv = document.createElement("div");
-                        projectDiv.classList.add("project");
+                            const h2El = document.createElement("h2");
+                            h2El.classList.add(profileData[i]);
+                            h2El.innerHTML = result[x];
 
-                        const imgSection = document.createElement("section");
-                        imgSection.classList.add("img-container");
+                            rootHeader.appendChild(h2El);
 
-                        const img = document.createElement("img");
-                        img.alt = "zdjecie";
-                        img.classList.add("project-img");
+                            i = i + 1;
+                            continue;
+                        }
 
-                        const textSection = document.createElement("section");
-                        textSection.classList.add("text-container");
+                        if (i === 1) {
 
-                        textSection.innerHTML = ' <h2 class="project-tittle">' + person.firstName + ' </h2> <h4 class="project-short-desc">' + person.lastName + '</h4>';
+                            const h4El = document.createElement("h4");
+                            h4El.classList.add(profileData[i]);
+                            h4El.innerHTML = result[x];
 
-                        imgSection.appendChild(img);
-                        projectDiv.appendChild(imgSection);
-                        projectDiv.appendChild(textSection);
-                        root1.appendChild(projectDiv);
+                            rootHeader.appendChild(h4El);
 
+                            i = i + 1;
+                            continue;
+                        }
+                        
+                        const divEl = document.createElement("div");
+                        divEl.classList.add(profileData[i]);
 
-                    })
+                        const h2El = document.createElement("h2");
+                        h2El.innerHTML = headlines[j];
+
+                        const h4El = document.createElement("h4");
+                        h4El.innerHTML = result[x];
+
+                        divEl.appendChild(h2El);
+                        divEl.appendChild(h4El);
+                        root.appendChild(divEl);
+
+                        i = i + 1;
+                        j = j + 1;
+                    }
+
 
                 } else {
                     console.log('Blad odpowiedzi serwera', response.body);
