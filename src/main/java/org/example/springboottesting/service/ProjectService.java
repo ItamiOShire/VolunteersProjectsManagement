@@ -3,9 +3,11 @@ package org.example.springboottesting.service;
 import org.example.springboottesting.model.Project;
 import org.example.springboottesting.model.ProjectDTO;
 import org.example.springboottesting.model.Tag;
+import org.example.springboottesting.model.Volunteer;
 import org.example.springboottesting.repository.OrganisationRepository;
 import org.example.springboottesting.repository.ProjectRepository;
 import org.example.springboottesting.repository.TagRepository;
+import org.example.springboottesting.repository.VolunteerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,12 +19,14 @@ public class ProjectService {
     private final ProjectRepository projectRepository;
     private final TagRepository tagRepository;
     private final OrganisationRepository organisationRepository;
+    private final VolunteerRepository volunteerRepository;
 
     @Autowired
-    public ProjectService(ProjectRepository projectRepository, TagRepository tagRepository, OrganisationRepository organisationRepository) {
+    public ProjectService(ProjectRepository projectRepository, TagRepository tagRepository, OrganisationRepository organisationRepository, VolunteerRepository volunteerRepository) {
         this.projectRepository = projectRepository;
         this.tagRepository = tagRepository;
         this.organisationRepository = organisationRepository;
+        this.volunteerRepository = volunteerRepository;
     }
 
     public Project createProject(String tittle,
@@ -81,6 +85,22 @@ public class ProjectService {
             return null;
         }
 
+
+    }
+
+    public boolean joinProject(Long projectId, Long volunteerId) {
+
+        Volunteer volunteer = volunteerRepository.findById(volunteerId).orElse(null);
+
+        Project project = projectRepository.findById(projectId).orElse(null);
+
+        if (volunteer != null && project != null) {
+            volunteer.getProjects().add(project);
+            volunteerRepository.save(volunteer);
+            return true;
+        } else {
+            return false;
+        }
 
     }
 

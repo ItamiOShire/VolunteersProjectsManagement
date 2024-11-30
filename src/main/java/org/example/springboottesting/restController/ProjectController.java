@@ -82,4 +82,16 @@ public class ProjectController {
         ProjectDTO project = projectService.getProjectById(id);
         return ResponseEntity.ok(project);
     }
+
+    @GetMapping("/join/{id}")
+    public ResponseEntity<String> joinProject(@PathVariable Long id, HttpSession session) {
+
+        boolean isJoined = projectService.joinProject(id, Long.parseLong(session.getAttribute("id").toString()));
+
+        if (isJoined) {
+            return ResponseEntity.ok("Dołączono do projektu");
+        } else {
+            return ResponseEntity.internalServerError().body("Błąd serwera - nie znaleziono projektu lub użytkownika");
+        }
+    }
 }
