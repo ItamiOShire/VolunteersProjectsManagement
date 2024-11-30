@@ -1,9 +1,11 @@
 .main {
     display:grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 40% 40%;
+    justify-content: center;
+    gap:2em;
 }
 
-section.tasks-container, section.volunteers-container-in {
+section.tasks-container, section.volunteers-container-in, section.volunteers-container {
     background-color: rgb(173, 178, 229);
     background-image: linear-gradient(rgb(173, 178, 229),rgb(115,124,255) );
     border-radius: 2em;
@@ -11,6 +13,10 @@ section.tasks-container, section.volunteers-container-in {
     height:100%;
     position:relative;
     box-shadow: 0.5em 0.5em 2em rgba(101,85,143,0.80);
+}
+
+section.volunteers-container {
+    padding:2em;
 }
 
 .tasks, .volunteers {
@@ -36,6 +42,26 @@ section.tasks-container, section.volunteers-container-in {
     display:flex;
 }
 
+.volunteer > span {
+    background-color: aqua;
+    width:1em;
+    text-align: center;
+    border-radius:2em;
+    padding:0.2em;
+}
+
+.volunteer {
+    display: flex;
+    align-items: center;
+    padding:0;
+    padding-left:2em;
+    height:50px;
+}
+
+.volunteer > * {
+    margin: 10px;
+}
+
 .task-controlls {
     align-self: center;
     justify-self: flex-end;
@@ -55,15 +81,59 @@ section.tasks-container, section.volunteers-container-in {
 }
 
 section.volunteers-container {
-    background-color: white;
     display:flex;
 }
 
-section.volunteers-container > section {
-    flex: 1 1 0;
+section.volunteers-container > section.volunteers-container-in {
+    flex: 3 1 0;
 }
 
 section.tasks-choose-container {
+    flex: 1 1 0;
     align-self: center;
     text-align: center;
+}
+
+section.project-nav-container {
+    margin-left:10%;
+    margin-bottom:2em;
+}
+
+section.project-nav-container > button {
+    background-color: rgb(210, 211, 239);
+    padding:1.5em;
+    width:200px;
+    border-radius: 2em;
+    border:none;
+    cursor: pointer;
+}
+
+section.project-nav-container > button.active {
+    background-color: rgb(189, 193, 234);
+}
+
+div.volunteer button,
+div.tasks-buttons-container button {
+    color:white;
+    height:2em;
+    background-color: rgba(101,85,143,1.0);
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px -7px 10px 0px inset;
+    transition: background-color 0.3s ease;
+    border:0;
+    border-radius:0.5em;
+    cursor: pointer;
+}
+
+div.tasks-buttons-container button {
+    margin-bottom:1em;
+}
+
+select {
+    width:60%;
+    height:2em;
+    border-radius:0.5em;
+    margin:0.5em 0;
+    border:0;
+    box-shadow:inset rgba(0, 0, 0, 0.31) 3px 2px 5px, rgba(0, 0, 0, 0.23) 0px 0px 0px 0px inset;
 }

@@ -19,13 +19,14 @@
     text-align: center;
     margin:auto;
     height:80%;
+    
 }
 
 .project-img {
-    width:300px;
-    height:300px;
+    width:min(300px, 100%);
+    height:min(300px, 100%);
+    border-radius: 2em;
     object-fit: contain;
-    border-radius:2em;
 }
 
 .project-short-desc{

@@ -19,7 +19,7 @@ div.project {
 
 .project-img {
     width:min(300px, 100%);
-    height:max(300px, 100%);
+    height:min(300px, 100%);
     border-radius: 2em;
     object-fit: fill;
 }

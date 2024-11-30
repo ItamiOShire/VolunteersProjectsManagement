@@ -5,6 +5,7 @@ h4 {
 .main {
     display:flex;
     flex-direction: column;
+    height:100%;
 }
 
 section.profile-details, section.profile-desc {
@@ -14,6 +15,10 @@ section.profile-details, section.profile-desc {
     position:relative;
     box-shadow: 0.5em 0.5em 2em rgba(101,85,143,0.80);
     margin:2em 4em;
+}
+
+section.profile-desc {
+    height:50%;
 }
 
 div.profile-header {
@@ -40,6 +45,7 @@ div.desc-container {
     grid-template-columns: 60% 40%;
     align-items: center;
     justify-content: center;
+    height:100%;
 }
 div.img-container {
     height:80%;
