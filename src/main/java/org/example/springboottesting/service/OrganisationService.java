@@ -25,17 +25,19 @@ public class OrganisationService {
             return null;
         }
 
+        String apartmentNumber = (organisation.getApartmentNumber() == 0) ? String.valueOf(organisation.getApartmentNumber()):"-";
+
         organisationDTO.setEmail(organisation.getEmail());
-        organisationDTO.setfName(organisation.getOwnerFirstName());
-        organisationDTO.setlName(organisation.getOwnerLastName());
-        organisationDTO.setApartmentNumber(organisation.getApartmentNumber());
         organisationDTO.setName(organisation.getOrgName());
         organisationDTO.setKrsNumber(organisation.getKRSNumber());
         organisationDTO.setPhone(organisation.getPhoneNumber());
-        organisationDTO.setZipCode(organisation.getZipCode());
-        organisationDTO.setTown(organisation.getTown());
         organisationDTO.setType(organisation.getType());
-        organisationDTO.setStreet(organisation.getStreet());
+        organisationDTO.setFnameAndlname(organisation.getOwnerFirstName() + " " + organisation.getOwnerLastName());
+        organisationDTO.setAdress(
+                organisation.getStreet() + "/" +
+                apartmentNumber + " " +
+                organisation.getZipCode() + ", " +
+                organisation.getTown());
 
         return organisationDTO;
     }
