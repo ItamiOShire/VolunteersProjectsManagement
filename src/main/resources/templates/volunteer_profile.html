@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/main-layout.css">
+    <link rel="stylesheet" href="/css/volunteer-profile.css">
+    <title>Strona główna</title>
+</head>
+<body onload = "get()">
+
+    <header class="header">
+
+        <div class="logo-container">
+            <img src="/images/logo.png" alt="logo" class="logo">
+        </div>
+
+        <nav class="nav-menu">
+            <div class="nav-links-container">
+                <a href="" class="nav-link">O nas</a>
+                <a href="/volunteer/projects" class="nav-link">Projekty</a>
+                <a href="" class="nav-link">Organizacje</a>
+                <a href="" class="nav-link">Kontakt</a>
+            </div>
+            <div class="sign-in-up-buttons">
+                <a href="/volunteer/profile" class="nav-link">Profil</a>
+                <a href="" class="nav-link">Wyloguj</a>
+            </div>
+
+        </nav>
+
+    </header>
+
+    <hr class="section-line">
+
+    <main class="main">
+
+        <section class="profile-details">
+
+            <div class="profile-container">
+
+                <div class="profile-header">
+
+                    <h1 class="profile-headline">Profil</h1>
+
+                </div>
+
+                <div class="profile-data">
+
+                    <div class="fname-lname">
+                        <h2>Imię i nazwisko</h2>
+                        <h4>Jan Kowalski</h4>
+                    </div>
+
+                    <div class="email">
+                        <h2>Email</h2>
+                        <h4>test@test.com</h4>
+                    </div>
+
+                    <div class="phone-number">
+                        <h2>Nr telefonu</h2>
+                        <h4>123456789</h4>
+                    </div>
+
+                    <div class="birth-date">
+                        <h2>Data urodzenia</h2>
+                        <h4>1234567890</h4>
+                    </div>
+
+
+                </div>
+
+                <button type="button" class="edit-profile-button">Edytuj</button>
+
+            </div>
+
+            
+        </section>
+
+
+        <section class="projects-container">
+
+            <div class="projects">
+
+                <h1>Lista projektów</h1>
+
+                <div class="project">
+
+                    <section class="text-container">
+
+                        <h2 class="project-tittle">Projekt 1</h2>
+                        <h4 class="project-tags">tagi tagi tagi tagi tagi</h4>
+
+                    </section>
+
+                    <button type="button" class="project-desc-button">Szczegóły</button>
+
+                </div>
+
+                <div class="project">
+
+                    <section class="text-container">
+
+                        <h2 class="project-tittle">Projekt 1</h2>
+                        <h4 class="project-tags">tagi tagi tagi tagi tagi</h4>
+
+                    </section>
+
+                    <button type="button" class="project-desc-button">Szczegóły</button>
+
+                </div>
+
+                <div class="project">
+
+                    <section class="text-container">
+
+                        <h2 class="project-tittle">Projekt 1</h2>
+                        <h4 class="project-tags">tagi tagi tagi tagi tagi</h4>
+
+                    </section>
+
+                    <button type="button" class="project-desc-button">Szczegóły</button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="tasks-container" id = "tasks-container" >
+
+           
+
+            <div class="tasks" id = "tasks">
+
+                <h1>Dzienniczek</h1>
+
+                <div class="task">
+
+                    <h2 class="task-tittle">Zadanie 1</h2>
+
+                    <p class="task-desc">opis zadania</p>
+
+                    <span class="priority">Priorytet - wysoki, deadline - 11.11.1111</span>
+
+                </div>
+
+                <div class="task">
+
+                    <h2 class="task-tittle">Zadanie 1</h2>
+
+                    <p class="task-desc">opis zadania</p>
+
+                    <span class="priority">Priorytet - wysoki, deadline - 11.11.1111</span>
+
+                </div>
+
+                <div class="task">
+
+                    <h2 class="task-tittle">Zadanie 1</h2>
+
+                    <p class="task-desc">opis zadania</p>
+
+                    <span class="priority">Priorytet - wysoki, deadline - 11.11.1111</span>
+
+                </div>
+
+            </div>
+        
+        </section>
+
+    </main>
+
+    <hr class="section-line">
+
+    <footer class="footer">
+
+        <div class="footer-col1"><img src="images/logo2mini.png" alt=""></div>
+        <div class="footer-col2">col2</div>
+        <div class="footer-col3">col3</div>
+        <div class="footer-col4">col4</div>
+
+    </footer>
+
+
+    <script>
+
+        
+        async function getOrganisationData() {
+
+            const profileData = [
+                "organisation-name", 
+                "organisation-type", 
+                "fname-lname", 
+                "email", 
+                "phone-number", 
+                "adress", 
+                "krs-number"]
+
+            const headlines = [
+                "Imię i nazwisko właściciela",
+                "Email",
+
+            ]
+
+            try {
+                const response = await fetch('getData', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    
+                    for (let x in profileData) {
+
+                    }
+
+
+                } else {
+                    console.log('Blad odpowiedzi serwera', response.body);
+                }
+
+            } catch (error) {
+                console.error('Error', error);
+            }
+
+        }
+    </script>
+    
+</body>
+</html>
