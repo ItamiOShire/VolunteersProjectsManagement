@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Volunteer {
@@ -35,7 +36,7 @@ public class Volunteer {
             joinColumns = @JoinColumn(name = "volunteerID"),
             inverseJoinColumns = @JoinColumn(name = "projectID")
     )
-    private List<Project> projects;
+    private Set<Project> projects;
 
     @ManyToMany
     @JoinTable(
@@ -43,21 +44,21 @@ public class Volunteer {
             joinColumns = @JoinColumn(name = "volunteerID"),
             inverseJoinColumns = @JoinColumn(name = "taskID")
     )
-    private List<Task> tasks;
+    private Set<Task> tasks;
 
-    public List<Task> getTasks() {
+    public Set<Task> getTasks() {
         return tasks;
     }
 
-    public void setTasks(List<Task> tasks) {
+    public void setTasks(Set<Task> tasks) {
         this.tasks = tasks;
     }
 
-    public List<Project> getProjects() {
+    public Set<Project> getProjects() {
         return projects;
     }
 
-    public void setProjects(List<Project> projects) {
+    public void setProjects(Set<Project> projects) {
         this.projects = projects;
     }
 

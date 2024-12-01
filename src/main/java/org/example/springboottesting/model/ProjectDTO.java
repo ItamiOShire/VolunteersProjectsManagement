@@ -1,6 +1,7 @@
 package org.example.springboottesting.model;
 
 import java.util.List;
+import java.util.Set;
 
 public class ProjectDTO {
 
@@ -12,7 +13,7 @@ public class ProjectDTO {
 
     private String orgName;
 
-    private List<Tag> tags;
+    private Set<Tag> tags;
 
     public String getDesc() {
         return desc;
@@ -46,11 +47,11 @@ public class ProjectDTO {
         this.orgName = orgName;
     }
 
-    public List<Tag> getTags() {
+    public Set<Tag> getTags() {
         return tags;
     }
 
-    public void setTags(List<Tag> tags) {
+    public void setTags(Set<Tag> tags) {
         this.tags = tags;
     }
 }

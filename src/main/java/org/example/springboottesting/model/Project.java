@@ -31,25 +31,25 @@ public class Project {
             joinColumns = @JoinColumn(name = "projectID"),
             inverseJoinColumns = @JoinColumn(name = "tagID")
     )
-    private List<Tag> tags;
+    private Set<Tag> tags;
 
     @ManyToMany(mappedBy = "projects", fetch = FetchType.LAZY)
     @JsonIgnore
-    private List<Volunteer> volunteers;
+    private Set<Volunteer> volunteers;
 
-    public List<Volunteer> getVolunteers() {
+    public Set<Volunteer> getVolunteers() {
         return volunteers;
     }
 
-    public void setVolunteers(List<Volunteer> volunteers) {
+    public void setVolunteers(Set<Volunteer> volunteers) {
         this.volunteers = volunteers;
     }
 
-    public List<Tag> getTags() {
+    public Set<Tag> getTags() {
         return tags;
     }
 
-    public void setTags(List<Tag> tags) {
+    public void setTags(Set<Tag> tags) {
         this.tags = tags;
     }
 

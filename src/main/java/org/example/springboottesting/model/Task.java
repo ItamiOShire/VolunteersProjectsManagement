@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Task {
@@ -32,13 +33,13 @@ public class Task {
 
     @ManyToMany(mappedBy = "tasks", fetch = FetchType.EAGER)
     @JsonIgnore
-    private List<Volunteer> volunteers;
+    private Set<Volunteer> volunteers;
 
-    public List<Volunteer> getVolunteers() {
+    public Set<Volunteer> getVolunteers() {
         return volunteers;
     }
 
-    public void setVolunteers(List<Volunteer> volunteers) {
+    public void setVolunteers(Set<Volunteer> volunteers) {
         this.volunteers = volunteers;
     }
 

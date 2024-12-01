@@ -19,7 +19,7 @@ public class Tag {
 
     @ManyToMany(mappedBy = "tags", fetch = FetchType.LAZY)
     @JsonIgnore
-    private List<Project> projects;
+    private Set<Project> projects;
 
     public int getId() {
         return id;
@@ -37,11 +37,11 @@ public class Tag {
         this.desc = desc;
     }
 
-    public List<Project> getProjects() {
+    public Set<Project> getProjects() {
         return projects;
     }
 
-    public void setProjects(List<Project> projects) {
+    public void setProjects(Set<Project> projects) {
         this.projects = projects;
     }
 }

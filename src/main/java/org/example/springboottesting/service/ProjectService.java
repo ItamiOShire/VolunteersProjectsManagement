@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class ProjectService {
@@ -42,10 +43,9 @@ public class ProjectService {
 
         System.out.println(tags);
 
-        List<Tag> tagSet = tagRepository.findAllByIdSorted(tags);
+        Set<Tag> tagSet = tagRepository.findAllByIdSorted(tags);
         project.setTags(tagSet);
         Project createdProject = projectRepository.save(project);
-
 
         return createdProject;
     }
