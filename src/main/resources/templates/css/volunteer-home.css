@@ -15,6 +15,7 @@ div.project {
     width:60%;
     min-width: 800px;
     margin:1.5rem 0;
+    position:relative;
 }
 
 .project-img {
@@ -36,8 +37,8 @@ div.project {
     border-radius: 2em;
     color:white;
     position:absolute;
-    right:0;
-    bottom:0;
+    right:5%;
+    bottom:5%;
     cursor: pointer;
 }
 
