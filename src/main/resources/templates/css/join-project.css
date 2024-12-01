@@ -1,6 +1,6 @@
 .main {
     display: grid;
-    grid-template-columns: 50% 40%;
+    grid-template-columns: 80%;
     justify-content: center;
     gap:2em;
 }
@@ -17,27 +17,63 @@ section.project-container {
     box-shadow: 0.5em 0.5em 2em rgba(101,85,143,0.80);
 }
 
-
-
 .text-container {
     margin:2em 0;
 }
 
 .img-container {
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin:auto;
     height:80%;
     
 }
 
 .project-img {
-    width:300px;
-    height:300px;
+    width:min(350px, 100%);
+    height:min(300px, 100%);
     border-radius: 2em;
-    object-fit: contain;
+    object-fit: fill;
 }
 
 .project-short-desc{
     color:gray;
 }
 
+.popup-container {
+    background-color: aliceblue;
+    padding:2em;
+    position:absolute;
+    width:50%;
+    top:10%;
+    left:25%;
+}
+.mask{
+    display:none;
+    position:absolute;
+    background-color: rgba(0,0,0,0.5);
+    height:100%;
+    width:100%;
+    left:0;
+    top:0;
+}
+
+div.popup-buttons-conainter {
+    text-align: center;
+}
+
+div.popup-buttons-container > button {
+    padding:0.5em 2em;
+    color:white;
+    background-color: rgba(101,85,143,1.0);
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px -7px 10px 0px inset;
+    transition: background-color 0.3s ease;
+    border-radius:0.5em;
+    border:0;
+}
+
+div.popup-buttons-container > button:disabled {
+    background-color: rgba(217, 209, 238, 0.8);
+}
