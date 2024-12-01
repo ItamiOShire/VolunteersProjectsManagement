@@ -6,8 +6,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Set;
 
 public interface TagRepository extends JpaRepository<Tag, Long> {
     @Query("SELECT t FROM Tag t WHERE t.id IN :ids")
-    List<Tag> findAllByIdSorted(@Param("ids") List<Long> ids);
+    Set<Tag> findAllByIdSorted(@Param("ids") List<Long> ids);
 }
