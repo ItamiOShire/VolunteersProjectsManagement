@@ -6,6 +6,8 @@ import java.util.Set;
 
 public class ProjectDTO {
 
+    private int id;
+
     private String desc;
 
     private String imgPath;
@@ -15,6 +17,14 @@ public class ProjectDTO {
     private String orgName;
 
     private Set<Tag> tags;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getDesc() {
         return desc;
