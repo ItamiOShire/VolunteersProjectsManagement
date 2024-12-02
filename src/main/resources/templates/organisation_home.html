@@ -163,6 +163,7 @@
                         const projectButton = document.createElement("button");
                         projectButton.type = "button";
                         projectButton.dataset.projectId = project.id;
+                        projectButton.addEventListener("click", goToProjectDesc);
                         projectButton.classList.add("project-desc-button");
                         projectButton.innerHTML = "Szczegóły";
                         
@@ -181,6 +182,12 @@
             } catch (error) {
                 console.error('Error', error);
             }
+
+        }
+
+        function goToProjectDesc() {
+
+            location.href = "http://localhost:8080/organisation/projects/" + this.dataset.projectId;
 
         }
     </script>
