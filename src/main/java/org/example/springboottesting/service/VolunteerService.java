@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @Service
 public class VolunteerService {
@@ -43,6 +46,25 @@ public class VolunteerService {
         }
 
         return null;
+
+    }
+
+    public List<VolunteerDTO> getVolunteersByJoinedProject(int projectId) {
+
+        Set<Volunteer> volunteers = volunteerRepository.findVolunteerByProjectId(projectId);
+
+        List<VolunteerDTO> volunteersDTO = new ArrayList<>();
+
+        for (Volunteer volunteer : volunteers) {
+            VolunteerDTO volunteerDTO = new VolunteerDTO();
+
+            volunteerDTO.setFnameAndLname(volunteer.getFirstName() + " " + volunteer.getLastName());
+            volunteerDTO.setEmail(volunteer.getEmail());
+
+            volunteersDTO.add(volunteerDTO);
+        }
+
+        return volunteersDTO;
 
     }
 }
