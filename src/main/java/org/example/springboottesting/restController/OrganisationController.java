@@ -1,7 +1,7 @@
 package org.example.springboottesting.restController;
 
 import jakarta.servlet.http.HttpSession;
-import org.example.springboottesting.model.OrganisationDTO;
+import org.example.springboottesting.DTO.OrganisationDTO;
 import org.example.springboottesting.service.OrganisationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

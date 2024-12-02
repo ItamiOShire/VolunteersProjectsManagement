@@ -2,8 +2,7 @@ package org.example.springboottesting.restController;
 
 import jakarta.servlet.http.HttpSession;
 import org.example.springboottesting.model.Project;
-import org.example.springboottesting.model.ProjectDTO;
-import org.example.springboottesting.model.Tag;
+import org.example.springboottesting.DTO.ProjectDTO;
 import org.example.springboottesting.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

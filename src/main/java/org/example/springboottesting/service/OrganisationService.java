@@ -1,7 +1,7 @@
 package org.example.springboottesting.service;
 
 import org.example.springboottesting.model.Organisation;
-import org.example.springboottesting.model.OrganisationDTO;
+import org.example.springboottesting.DTO.OrganisationDTO;
 import org.example.springboottesting.repository.OrganisationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
