@@ -1,4 +1,4 @@
-package org.example.springboottesting.model;
+package org.example.springboottesting.DTO;
 
 public class OrganisationDTO {
 

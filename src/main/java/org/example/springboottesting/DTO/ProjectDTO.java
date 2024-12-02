@@ -1,6 +1,7 @@
-package org.example.springboottesting.model;
+package org.example.springboottesting.DTO;
 
-import java.util.List;
+import org.example.springboottesting.model.Tag;
+
 import java.util.Set;
 
 public class ProjectDTO {
