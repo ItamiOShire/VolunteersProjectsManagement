@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/css/volunteer-profile.css">
     <title>Strona główna</title>
 </head>
-<body onload = "get()">
+<body>
 
     <header class="header">
 
@@ -46,27 +46,8 @@
 
                 </div>
 
-                <div class="profile-data">
+                <div class="profile-data" id = "profile-data">
 
-                    <div class="fname-lname">
-                        <h2>Imię i nazwisko</h2>
-                        <h4>Jan Kowalski</h4>
-                    </div>
-
-                    <div class="email">
-                        <h2>Email</h2>
-                        <h4>test@test.com</h4>
-                    </div>
-
-                    <div class="phone-number">
-                        <h2>Nr telefonu</h2>
-                        <h4>123456789</h4>
-                    </div>
-
-                    <div class="birth-date">
-                        <h2>Data urodzenia</h2>
-                        <h4>1234567890</h4>
-                    </div>
 
 
                 </div>
@@ -81,48 +62,11 @@
 
         <section class="projects-container">
 
-            <div class="projects">
+            <div class="projects" id="projects">
 
                 <h1>Lista projektów</h1>
 
-                <div class="project">
-
-                    <section class="text-container">
-
-                        <h2 class="project-tittle">Projekt 1</h2>
-                        <h4 class="project-tags">tagi tagi tagi tagi tagi</h4>
-
-                    </section>
-
-                    <button type="button" class="project-desc-button">Szczegóły</button>
-
-                </div>
-
-                <div class="project">
-
-                    <section class="text-container">
-
-                        <h2 class="project-tittle">Projekt 1</h2>
-                        <h4 class="project-tags">tagi tagi tagi tagi tagi</h4>
-
-                    </section>
-
-                    <button type="button" class="project-desc-button">Szczegóły</button>
-
-                </div>
-
-                <div class="project">
-
-                    <section class="text-container">
-
-                        <h2 class="project-tittle">Projekt 1</h2>
-                        <h4 class="project-tags">tagi tagi tagi tagi tagi</h4>
-
-                    </section>
-
-                    <button type="button" class="project-desc-button">Szczegóły</button>
-
-                </div>
+                
 
             </div>
 
@@ -185,38 +129,55 @@
     </footer>
 
 
-    <script>
-
+    <script defer>
         
-        async function getOrganisationData() {
+        async function getVolunteerData() {
+
+            const root = document.getElementById("profile-data");
 
             const profileData = [
-                "organisation-name", 
-                "organisation-type", 
                 "fname-lname", 
                 "email", 
                 "phone-number", 
-                "adress", 
-                "krs-number"]
+                "adress"
+            ]
 
             const headlines = [
-                "Imię i nazwisko właściciela",
-                "Email",
-
+                "Imię i nazwisko",
+                "Email", 
+                "Nr telefonu",
+                "Wiek"
             ]
 
             try {
-                const response = await fetch('getData', {
+                const response = await fetch('http://localhost:8080/api/volunteer/', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                 });
 
+                let i = 0;
+
                 if (response.ok) {
                     const result = await response.json();
                     
-                    for (let x in profileData) {
+                    for (let x in result) {
+
+                        const divEl = document.createElement("div");
+                        divEl.classList.add(profileData[i]);
+
+                        const h2El = document.createElement("h2");
+                        h2El.innerHTML = headlines[i];
+
+                        const h4El = document.createElement("h4");
+                        h4El.innerHTML = result[x];
+
+                        divEl.appendChild(h2El);
+                        divEl.appendChild(h4El);
+                        root.appendChild(divEl);
+
+                        i = i + 1;
 
                     }
 
@@ -226,10 +187,88 @@
                 }
 
             } catch (error) {
-                console.error('Error', error);
+                console.error('Error ', error);
             }
 
         }
+
+        async function getProjects() {
+
+            const root = document.getElementById("projects");
+
+            try {
+                const response = await fetch('http://localhost:8080/api/project/volunteer/all', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (response.ok) {
+
+                    const result = await response.json();
+
+                    result.forEach(project => {
+
+                        const projectDiv = document.createElement("div");
+                        projectDiv.classList.add("project");
+
+                        const textContainer = document.createElement("section");
+                        textContainer.classList.add("text-container");
+
+                        const projectTitle = document.createElement("h2");
+                        projectTitle.classList.add("project-tittle");
+                        projectTitle.innerHTML = project.title;
+
+                        const projectTags = document.createElement("h4");
+                        projectTags.classList.add("project-tags");
+                        
+                        for (let tag in project.tags) {
+                            projectTags.innerHTML += "[" + project.tags[tag].desc + "] ";
+                        }
+
+                        const projectButton = document.createElement("button");
+                        projectButton.type = "button";
+                        projectButton.addEventListener("click", goToProjectDesc);
+                        projectButton.dataset.projectId = project.id;
+                        projectButton.classList.add("project-desc-button");
+                        projectButton.innerHTML = "Szczegóły";
+
+                        textContainer.appendChild(projectTitle);
+                        textContainer.appendChild(projectTags);
+
+                        projectDiv.appendChild(textContainer);
+                        projectDiv.appendChild(projectButton);
+
+                        root.appendChild(projectDiv);
+                        
+                    });
+
+                } else {
+                    console.log("Błąd odpowiedzi serwera ", await response.body);
+                }
+
+            } catch (error) {
+                console.log(error);
+            }
+
+        }
+
+        function goToProjectDesc() {
+
+            location.href = "http://localhost:8080/volunteer/volunteer/profile/project/" + this.dataset.projectId;
+
+        }
+
+
+
+
+
+        document.body.onload = function () {
+            getVolunteerData();
+            getProjects();
+        }
+
     </script>
     
 </body>
