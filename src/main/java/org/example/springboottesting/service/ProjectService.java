@@ -122,6 +122,7 @@ public class ProjectService {
                 projectDTO.setTitle(project.getTitle());
                 projectDTO.setTags(project.getTags());
                 projectDTO.setOrgName(orgName);
+                projectDTO.setId(project.getId());
 
                 projectsDTO.add(projectDTO);
             }
