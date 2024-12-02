@@ -22,4 +22,10 @@ public class TaskService {
         return taskRepository.saveAll(tasks);
 
     }
+
+    public List<Task> getTasksByProjectId(int projectId) {
+
+        return taskRepository.getTasksByProjectId(projectId);
+
+    }
 }
