@@ -49,7 +49,11 @@ public class ProjectController {
         if (createdProject != null) {
             try {
                 Path path = Paths.get(filePath);
-                Files.copy(img.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+                Files.copy(
+                        img.getInputStream(),
+                        path,
+                        StandardCopyOption.REPLACE_EXISTING
+                );
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
@@ -69,11 +73,27 @@ public class ProjectController {
     @GetMapping("organisation/all")
     public ResponseEntity<List<Project>> getAllOrganisation(HttpSession session) {
         List<Project> projects = projectService.getProjectsByOrganisationId(
-                Integer.parseInt(session.getAttribute("id").toString()));
+                Integer.parseInt(session.getAttribute("id").toString())
+        );
         for (Project project : projects) {
             System.out.println(project);
         }
         return ResponseEntity.ok(projects);
+    }
+
+    @GetMapping("/volunteer/all")
+    public ResponseEntity<List<ProjectDTO>> getAllVolunteer(HttpSession session) {
+
+        List<ProjectDTO> projects = projectService.getProjectsByVolunteerId(
+                Long.parseLong(session.getAttribute("id").toString())
+        );
+
+        if (projects == null || projects.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(projects);
+
     }
 
     @GetMapping("/volunteer/{id}")
@@ -86,7 +106,10 @@ public class ProjectController {
     @GetMapping("/join/{id}")
     public ResponseEntity<String> joinProject(@PathVariable Long id, HttpSession session) {
 
-        boolean isJoined = projectService.joinProject(id, Long.parseLong(session.getAttribute("id").toString()));
+        boolean isJoined = projectService.joinProject(
+                id,
+                Long.parseLong(session.getAttribute("id").toString())
+        );
 
         if (isJoined) {
             return ResponseEntity.ok("Dołączono do projektu");

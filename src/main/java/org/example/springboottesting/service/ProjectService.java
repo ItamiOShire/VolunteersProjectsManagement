@@ -11,6 +11,7 @@ import org.example.springboottesting.repository.VolunteerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -102,6 +103,35 @@ public class ProjectService {
             return false;
         }
 
+    }
+
+    public List<ProjectDTO> getProjectsByVolunteerId(Long volunteerId) {
+
+        try {
+
+            List<Project> projects = projectRepository.findByVolunteerId(volunteerId);
+            List<ProjectDTO> projectsDTO = new ArrayList<>();
+
+            for(Project project : projects) {
+                ProjectDTO projectDTO = new ProjectDTO();
+
+                String orgName = organisationRepository.getNameById(project.getOrganisationId());
+
+                projectDTO.setDesc(project.getDesc());
+                projectDTO.setImgPath(project.getImgPath());
+                projectDTO.setTitle(project.getTitle());
+                projectDTO.setTags(project.getTags());
+                projectDTO.setOrgName(orgName);
+
+                projectsDTO.add(projectDTO);
+            }
+
+            return projectsDTO;
+
+        } catch (NullPointerException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 
 
