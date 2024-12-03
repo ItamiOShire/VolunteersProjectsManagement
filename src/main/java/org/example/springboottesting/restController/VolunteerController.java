@@ -50,4 +50,17 @@ public class VolunteerController {
         return ResponseEntity.notFound().build();
 
     }
+
+    @GetMapping("/withTasks/{taskId}/project/{projectId}")
+    public ResponseEntity<List<VolunteerDTO>> getVolunteerDataWithTasksByProject(@PathVariable int taskId, @PathVariable int projectId) {
+
+        List<VolunteerDTO> volunteers = volunteerService.getVolunteersWithTasksByProject(projectId, taskId );
+
+        if(volunteers != null) {
+            return ResponseEntity.ok(volunteers);
+        }
+
+        return ResponseEntity.notFound().build();
+
+    }
 }

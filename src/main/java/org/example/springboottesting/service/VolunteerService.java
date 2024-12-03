@@ -67,4 +67,23 @@ public class VolunteerService {
         return volunteersDTO;
 
     }
+
+    public List<VolunteerDTO> getVolunteersWithTasksByProject(int projectId, int taskId) {
+
+        Set<Volunteer> volunteers = volunteerRepository.findVolunteerWithTasksByProjectId(projectId, taskId);
+
+        List<VolunteerDTO> volunteersDTO = new ArrayList<>();
+
+        for (Volunteer volunteer : volunteers) {
+            VolunteerDTO volunteerDTO = new VolunteerDTO();
+
+            volunteerDTO.setFnameAndLname(volunteer.getFirstName() + " " + volunteer.getLastName());
+            volunteerDTO.setEmail(volunteer.getEmail());
+
+            volunteersDTO.add(volunteerDTO);
+        }
+
+        return volunteersDTO;
+
+    }
 }
