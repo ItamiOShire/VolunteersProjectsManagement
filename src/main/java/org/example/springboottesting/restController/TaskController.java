@@ -45,4 +45,30 @@ public class TaskController {
         return ResponseEntity.notFound().build();
     }
 
+    @PatchMapping("/{taskId}/update/{priorityId}")
+    public ResponseEntity<String> updateTaskPriority(@PathVariable int taskId, @PathVariable int priorityId) {
+
+        System.out.println(taskId + " " + priorityId);
+        Task task = taskService.updateTask(taskId, priorityId);
+
+        System.out.println(task.getPriorityId());
+
+        if (task != null) {
+            return ResponseEntity.ok("Zapisano!");
+        }
+
+        return ResponseEntity.notFound().build();
+
+    }
+
+    @DeleteMapping("/")
+    public ResponseEntity<String> deleteTask(@RequestBody List<Long> taskIds) {
+
+        boolean isDeleted = taskService.deleteTask(taskIds);
+
+        if (isDeleted) {
+            return ResponseEntity.ok("Usunięto!");
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Usuwanie nie powiodło się");
+    }
 }
