@@ -79,6 +79,7 @@ public class VolunteerService {
 
             volunteerDTO.setFnameAndLname(volunteer.getFirstName() + " " + volunteer.getLastName());
             volunteerDTO.setEmail(volunteer.getEmail());
+            volunteerDTO.setId(volunteer.getId());
 
             volunteersDTO.add(volunteerDTO);
         }
