@@ -53,88 +53,14 @@
 
             <div class="tasks" id = "tasks">
 
-
-                <div class="task">
-
-                    <div class="task-desc">
-                        <h2 class="task-tittle">Zadanie 1</h2>
-
-                        <p class="task-desc">opis zadania cos tam cos tam cos tam cos tam co tam co tam</p>
-
-                        <span class="priority">Priorytet - wysoki</span>
-                    </div>
-                    <div class="task-controlls">
-
-                        <select name="priority" id="priority">
-
-                            <option value="val1">val1</option>
-                            <option value="val2">val2</option>
-                            <option value="val3">val3</option>
-        
-                        </select>
-
-                        <input type="checkbox" name="to_delete" id="to_delete">
-
-                    </div>
-
-                </div>
-
-                <div class="task">
-
-                    <div class="task-desc">
-                        <h2 class="task-tittle">Zadanie 1</h2>
-
-                        <p class="task-desc">opis zadania cos tam </p>
-
-                        <span class="priority">Priorytet - wysoki</span>
-                    </div>
-                    <div class="task-controlls">
-
-                        <select name="priority" id="priority">
-
-                            <option value="val1">val1</option>
-                            <option value="val2">val2</option>
-                            <option value="val3">val3</option>
-        
-                        </select>
-
-                        <input type="checkbox" name="to_delete" id="to_delete">
-
-                    </div>
-
-                </div>
-
-                <div class="task">
-
-                    <div class="task-desc">
-                        <h2 class="task-tittle">Zadanie 1</h2>
-
-                        <p class="task-desc">opis zadaniaa</p>
-
-                        <span class="priority">Priorytet - wysoki</span>
-                    </div>
-                    <div class="task-controlls">
-
-                        <select name="priority" id="priority">
-
-                            <option value="val1">val1</option>
-                            <option value="val2">val2</option>
-                            <option value="val3">val3</option>
-        
-                        </select>
-
-                        <input type="checkbox" name="to_delete" id="to_delete">
-
-                    </div>
-
-                </div>
+                
 
             </div>
 
             <div class="tasks-buttons-container">
 
                 <button type="button" class="save-button">Zapisz</button>
-                <button type="button" class="delete-button">Usuń wybrane</button>
+                <button type="button" class="delete-button" onclick = "deleteTasks()">Usuń wybrane</button>
 
             </div>
             
@@ -213,7 +139,7 @@
         const projectId = urlArray.at(-1);
 
         const tasks = [];
-        const tasksToUpdate = [];
+        const tasksToDelete = [];
 
         const priorityArray = [
                 "Niski",
@@ -224,6 +150,7 @@
         async function getTasksToVolunteersContainer() {
 
             const root = document.getElementById("task");
+            root.innerHTML = "";
 
             try {
                 const response = await fetch('http://localhost:8080/api/task/project/' + projectId, {
@@ -243,9 +170,9 @@
 
                         root.appendChild(option);
 
-                        getVolunteersByProject();
-
                     });
+
+                    getVolunteersByProject();
                 }
 
             } catch (error) {
@@ -258,6 +185,7 @@
 
             const root = document.getElementById("volunteers");
             const taskId = document.getElementById("task").value;
+            root.innerHTML = "";
 
             try {
                     const response = await fetch('http://localhost:8080/api/volunteer/withTasks/' +taskId + '/project/' + projectId, {
@@ -278,7 +206,7 @@
                         const div = document.createElement("div");
                         div.classList.add("volunteer");
                         div.innerHTML = "<span>" + volunteer.fnameAndLname[0] + "</span> " + volunteer.fnameAndLname + 
-                        '<button type = "button" class="add-volunteer-to-task-button" onclick = addVolunteerToTask(' + volunteer.id + ')> Dodaj </button>';
+                        '<button type = "button" class="add-volunteer-to-task-button" onclick = "addVolunteerToTask(' + volunteer.id + ', this)"> Dodaj </button>';
 
                         root.appendChild(div);
                         
@@ -345,10 +273,12 @@
                         const select = document.createElement("select");
                         select.name = "priority";
                         select.id = "priority-taskId-"+task.id;
+                        select.dataset.taskId = task.id;
+                        select.onchange = updateTasks;
 
                         priorityArray.forEach(priority => {
                             const option = document.createElement("option")
-                            option.value = task.priority
+                            option.value = priorityArray.indexOf(priority) + 1;
                             option.innerHTML = priority;
                             if (priorityArray[task.priority - 1] == priority) {
                                 option.selected = "selected";
@@ -361,6 +291,7 @@
                         control.name = "to_delete";
                         control.id = "to_delete";
                         control.dataset.taskId = task.id;
+                        control.onchange = addTasksToDelete;
 
                         taskControlls.appendChild(select);
                         taskControlls.appendChild(control);
@@ -394,6 +325,8 @@
 
                 tasks.push(data);
 
+                const root = document.getElementById("tasks");
+
                 try {
 
                     const response = await fetch("http://localhost:8080/api/task/save", {
@@ -408,24 +341,29 @@
 
                         const result = await response.json();
 
-                        response.forEach(task => { 
+                        result.forEach(task => { 
 
-                        const root = document.getElementById("tasks");
+                        const div = document.createElement("div");
+                        div.classList.add("task");
 
-                        const taskDiv = document.createElement("div");
-                        taskDiv.classList.add("task");
+                        const divTaskDesc = document.createElement("div");
+                        divTaskDesc.classList.add("task-desc");
 
-                        const taskHeader = document.createElement("h2");
-                        taskHeader.classList.add("task-tittle");
-                        taskHeader.innerText = data["task-title"];
+                        const h2 = document.createElement("h2");
+                        h2.classList.add("task-tittle");
+                        h2.innerHTML = task["task-title"];
 
-                        const taskDesc = document.createElement("p");
-                        taskDesc.classList.add("task-desc");
-                        taskDesc.innerText = data["task-desc"];
+                        const p = document.createElement("p");
+                        p.classList.add("task-desc");
+                        p.innerHTML = task["task-desc"];
 
-                        const taskPriority = document.createElement("span");
-                        taskPriority.classList.add("priority");
-                        taskPriority.innerText = "Priorytet - " + data["priority"] + ", termin - " + data["deadline"];
+                        const span = document.createElement("span");
+                        span.classList.add("priority");
+                        span.innerHTML = "Priorytet - " + priorityArray[task.priority - 1] + ", termin - " + task.deadline;
+
+                        divTaskDesc.append(h2);
+                        divTaskDesc.append(p);
+                        divTaskDesc.append(span);
 
                         const taskControlls = document.createElement("div");
                         taskControlls.classList.add("task-controlls");
@@ -433,12 +371,16 @@
                         const select = document.createElement("select");
                         select.name = "priority";
                         select.id = "priority-taskId-"+task.id;
-                        select.onchange = "uncheckCheckbox()";
+                        select.dataset.taskId = task.id;
+                        select.onchange = updateTasks;
 
                         priorityArray.forEach(priority => {
                             const option = document.createElement("option")
-                            option.value = task.priority
+                            option.value = priorityArray.indexOf(priority) + 1;
                             option.innerHTML = priority;
+                            if (priorityArray[task.priority - 1] == priority) {
+                                option.selected = "selected";
+                            }
                             select.appendChild(option);
                         })
 
@@ -447,12 +389,15 @@
                         control.name = "to_delete";
                         control.id = "to_delete";
                         control.dataset.taskId = task.id;
-                        control.oncheck = "addTaskToUpdates()"
+                        control.onchange = addTasksToDelete
 
-                        taskDiv.appendChild(taskHeader);
-                        taskDiv.appendChild(taskDesc);
-                        taskDiv.appendChild(taskPriority);
-                        root.append(taskDiv);
+                        taskControlls.appendChild(select);
+                        taskControlls.appendChild(control);
+
+                        div.appendChild(divTaskDesc);
+                        div.appendChild(taskControlls);
+
+                        root.appendChild(div);
 
                     });
                         
@@ -466,7 +411,7 @@
 
             }
 
-        async function addVolunteerToTask(volunteerId) {
+        async function addVolunteerToTask(volunteerId, button) {
 
             const taskId = document.getElementById("task").value;
 
@@ -480,8 +425,8 @@
 
                 if (response.ok) {
                     const output = document.createElement("output");
-                    output.innerText = "Dodano"
-                    this.replaceWith(output);
+                    output.innerText = "Dodano";
+                    button.replaceWith(output);
                 }                
 
             } catch (error) {
@@ -492,29 +437,88 @@
 
         async function updateTasks() {
 
+            const priorityId = this.value;
+            const taskId = this.dataset.taskId;
 
+            console.log(priorityId + " " + taskId);
+
+            try {
+                    const response = await fetch(`http://localhost:8080/api/task/${taskId}/update/${priorityId}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (response.ok) {
+                    alert(await response.text());
+                }
+
+            } catch (error) {
+                console.log(error);
+            }
 
         }
 
-        //TODO: change the way you get the select element (there is plenty with same id)
+        
 
-        function addTasksToUpdate() {
+        // TODO: i dont have to add tasks to tasksToUpdate on every check
+        // i can do it every change on select, not checkbox - checkbox will be only
+        // to select tasks to delete
 
-            const priority = document.getElementById("priority-taskId-"+this.dataset.taskId).value;
-            tasksToUpdate.push([this.dataset.taskId, priority]);
-            console.log(tasksToUpdate);
+        function addTasksToDelete(event) {
+
+            const checkbox = event.target;
+
+            if (checkbox.checked) {
+
+                tasksToDelete.push(checkbox.dataset.taskId);
+                console.log(tasksToDelete);
+
+            } else if (!checkbox.checked) {
+
+                let indexOfTask = tasksToDelete.indexOf(checkbox.dataset.taskId);
+
+                if (indexOfTask >= 0) {
+                    tasksToDelete.splice(indexOfTask, 1);
+                }
+                console.log(tasksToDelete);
+
+            } else {
+                console.log("nie udało sie usunąć zadania")
+            }
 
         }
 
-        function uncheckCheckbox() {
-            document.getElementById("to_delete").checked = false;
+        async function deleteTasks() {
+
+            try {
+                    const response = await fetch(`http://localhost:8080/api/task/`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(tasksToDelete)
+                });
+
+                if (response.ok) {
+                    alert(await response.text());
+                    tasksToDelete.splice(0, tasksToDelete.length);
+                } else {
+                    alert(await response.text());
+                    tasksToDelete.splice(0, tasksToDelete.length);
+                }
+
+            } catch (error) {
+                console.log(error);
+            }
+            
         }
 
         function loadContent() {
 
             getTasks();
             getTasksToVolunteersContainer();
-            getVolunteersByProject();
 
         }
 
