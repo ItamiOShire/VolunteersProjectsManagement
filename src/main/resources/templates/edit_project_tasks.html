@@ -8,12 +8,12 @@
     <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
     <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet"/>
 
-    <link rel="stylesheet" href="css/main-layout.css">
-    <link rel="stylesheet" href="css/form-layout.css">
-    <link rel="stylesheet" href="css/edit-project-tasks.css">
+    <link rel="stylesheet" href="/css/main-layout.css">
+    <link rel="stylesheet" href="/css/form-layout.css">
+    <link rel="stylesheet" href="/css/edit-project-tasks.css">
     <title>Strona główna</title>
 </head>
-<body>
+<body onload = "loadContent()">
 
     <header class="header">
 
@@ -51,7 +51,7 @@
 
             <h1>Lista zadań</h1>
 
-            <div class="tasks">
+            <div class="tasks" id = "tasks">
 
 
                 <div class="task">
@@ -143,25 +143,28 @@
 
         <section class="tasks-from-container">
 
-            <form action="" class="form">
+            <form action="" class="form" name = "taskForm">
 
-                <label for="task-tittle">Tytuł</label>
-                <input type="text" name="task-tittle" id="task-tittle" required>
+                <label for="task-title">Tytuł</label>
+                <input type="text" name="task-title" id="task-title" required>
 
                 <label for="task-desc">Opis</label>
-                <input type="text" name="task-desc" id="task-desc">
+                <textarea name="task-desc" id="task-desc" required></textarea>
 
                 <label for="priority">Priorytet</label>
-                <select name="priority" id="priority">
+                <select name="priority" id="priority" required>
 
-                    <option value="val1">val1</option>
-                    <option value="val2">val2</option>
-                    <option value="val3">val3</option>
+                    <option value="1">Niski</option>
+                    <option value="2">Umiarkowany</option>
+                    <option value="3">Średni</option>
+                    <option value="4">Wysoki</option>
 
                 </select>
 
-                <input type="submit" value="Dodaj zadanie do listy zadań">
+                <label for="deadline">Termin zadania</label>
+                <input type="date" name="deadline" id="deadline" required>
 
+                <button type="button" onclick="addTasksToList()">Dodaj zadanie do listy</button>
             </form>
 
         </section>
@@ -172,10 +175,6 @@
                 <label for="task">Zadania</label><br>
                 <select name="task" id="task">
 
-                        <option value="val1">val1</option>
-                        <option value="val2">val2</option>
-                        <option value="val3">val3</option>
-
                 </select>
             </section>
 
@@ -185,25 +184,7 @@
     
                 <div class="volunteers" id ="volunteers">
     
-                    <div class="volunteer">
-                        <span>J</span> Jan Kowalski <button type="button" class="add-volunteer-to-task-button">Dodaj</button> 
-                    </div>
-    
-                    <div class="volunteer">
-                        <span>A</span> Jan Kowalski <output>Dodany</output>
-                    </div>
-    
-                    <div class="volunteer">
-                        <span>R</span> Jan Kowalski <button type="button" class="add-volunteer-to-task-button">Dodaj</button>
-                    </div>
-    
-                    <div class="volunteer">
-                        <span>F</span> Jan Kowalski <button type="button" class="add-volunteer-to-task-button">Dodaj</button>
-                    </div>
-                    
-                    <div class="volunteer">
-                        <span>G</span> Jan Kowalski <button type="button" class="add-volunteer-to-task-button">Dodaj</button>
-                    </div>
+                   
     
                 </div>
     
@@ -226,15 +207,19 @@
 
     </footer>
 
-    <script>
+    <script defer>
 
         const urlArray = window.location.href.split("/");
         const projectId = urlArray.at(-1);
 
-        $(".chosen-select").chosen();
-        document.getElementById('tags_chosen').style.width = "";
-        document.getElementsByClassName('chosen-search-input')[0].setAttribute('value',"Wybierz tagi");
-        document.getElementsByClassName('chosen-search-input')[0].setAttribute('placeholder',"chosen-search-input");
+        const tasks = [];
+        const tasksToUpdate = [];
+
+        const priorityArray = [
+                "Niski",
+                "Umiarkowany",
+                "Średni",
+                "Wysoki"]
 
         async function getTasksToVolunteersContainer() {
 
@@ -249,13 +234,16 @@
                 });
 
                 if (response.ok) {
-                    response.forEach(task => {
+                    const result = await response.json();
+                    result.forEach(task => {
                         
                         const option = document.createElement("option");
                         option.value = task.id;
                         option.innerHTML = task["task-title"];
 
                         root.appendChild(option);
+
+                        getVolunteersByProject();
 
                     });
                 }
@@ -272,7 +260,7 @@
             const taskId = document.getElementById("task").value;
 
             try {
-                    const response = await fetch('http://localhost:8080/api/volunteer/withTasks' +taskId + '/project/' + projectId, {
+                    const response = await fetch('http://localhost:8080/api/volunteer/withTasks/' +taskId + '/project/' + projectId, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -283,14 +271,14 @@
 
                     const result = await response.json();
 
-                    const volunteerWithTasks = await response2.json();
-
                     result.forEach(volunteer => {
+
+                        console.log(volunteer);
 
                         const div = document.createElement("div");
                         div.classList.add("volunteer");
                         div.innerHTML = "<span>" + volunteer.fnameAndLname[0] + "</span> " + volunteer.fnameAndLname + 
-                        '<button type = "button" class="add-volunteer-to=task-button> Dodaj </button>';
+                        '<button type = "button" class="add-volunteer-to-task-button" onclick = addVolunteerToTask(' + volunteer.id + ')> Dodaj </button>';
 
                         root.appendChild(div);
                         
@@ -311,11 +299,7 @@
             const urlArray = window.location.href.split("/");
             const projectId = urlArray.at(-1);
 
-            const priorityArray = [
-                "Niski",
-                "Umiarkowany",
-                "Średni",
-                "Wysoki"]
+            
 
             try {
                     const response = await fetch('http://localhost:8080/api/task/project/' + projectId, {
@@ -336,6 +320,9 @@
                         const div = document.createElement("div");
                         div.classList.add("task");
 
+                        const divTaskDesc = document.createElement("div");
+                        divTaskDesc.classList.add("task-desc");
+
                         const h2 = document.createElement("h2");
                         h2.classList.add("task-tittle");
                         h2.innerHTML = task["task-title"];
@@ -348,8 +335,16 @@
                         span.classList.add("priority");
                         span.innerHTML = "Priorytet - " + priorityArray[task.priority - 1] + ", termin - " + task.deadline;
 
+                        divTaskDesc.append(h2);
+                        divTaskDesc.append(p);
+                        divTaskDesc.append(span);
+
+                        const taskControlls = document.createElement("div");
+                        taskControlls.classList.add("task-controlls");
+
                         const select = document.createElement("select");
                         select.name = "priority";
+                        select.id = "priority-taskId-"+task.id;
 
                         priorityArray.forEach(priority => {
                             const option = document.createElement("option")
@@ -361,10 +356,17 @@
                             select.appendChild(option);
                         })
 
-                        div.appendChild(h2);
-                        div.appendChild(p);
-                        div.appendChild(span);
-                        div.appendChild(select);
+                        const control =document.createElement("input");
+                        control.type="checkbox";
+                        control.name = "to_delete";
+                        control.id = "to_delete";
+                        control.dataset.taskId = task.id;
+
+                        taskControlls.appendChild(select);
+                        taskControlls.appendChild(control);
+
+                        div.appendChild(divTaskDesc);
+                        div.appendChild(taskControlls);
 
                         root.appendChild(div);
                         
@@ -377,6 +379,148 @@
                 }
 
             }
+
+            async function addTasksToList() {
+
+                const form = document.forms["taskForm"];
+
+                const formData = new FormData(form);
+
+                const data = Object.fromEntries(formData.entries());
+
+                data.projectId = projectId;
+
+                console.log(data);
+
+                tasks.push(data);
+
+                try {
+
+                    const response = await fetch("http://localhost:8080/api/task/save", {
+                        method: 'POST',
+                        headers: {
+                            'Content-type': 'application/json'
+                        },
+                        body: JSON.stringify(tasks)
+                    });
+
+                    if (response.ok) {
+
+                        const result = await response.json();
+
+                        response.forEach(task => { 
+
+                        const root = document.getElementById("tasks");
+
+                        const taskDiv = document.createElement("div");
+                        taskDiv.classList.add("task");
+
+                        const taskHeader = document.createElement("h2");
+                        taskHeader.classList.add("task-tittle");
+                        taskHeader.innerText = data["task-title"];
+
+                        const taskDesc = document.createElement("p");
+                        taskDesc.classList.add("task-desc");
+                        taskDesc.innerText = data["task-desc"];
+
+                        const taskPriority = document.createElement("span");
+                        taskPriority.classList.add("priority");
+                        taskPriority.innerText = "Priorytet - " + data["priority"] + ", termin - " + data["deadline"];
+
+                        const taskControlls = document.createElement("div");
+                        taskControlls.classList.add("task-controlls");
+
+                        const select = document.createElement("select");
+                        select.name = "priority";
+                        select.id = "priority-taskId-"+task.id;
+                        select.onchange = "uncheckCheckbox()";
+
+                        priorityArray.forEach(priority => {
+                            const option = document.createElement("option")
+                            option.value = task.priority
+                            option.innerHTML = priority;
+                            select.appendChild(option);
+                        })
+
+                        const control =document.createElement("input");
+                        control.type="checkbox";
+                        control.name = "to_delete";
+                        control.id = "to_delete";
+                        control.dataset.taskId = task.id;
+                        control.oncheck = "addTaskToUpdates()"
+
+                        taskDiv.appendChild(taskHeader);
+                        taskDiv.appendChild(taskDesc);
+                        taskDiv.appendChild(taskPriority);
+                        root.append(taskDiv);
+
+                    });
+                        
+                    } else {
+                        console.log('Blad serwera: ', await response.text());
+                    }
+
+                } catch (error) {
+                console.error(error);
+                }
+
+            }
+
+        async function addVolunteerToTask(volunteerId) {
+
+            const taskId = document.getElementById("task").value;
+
+            try {
+                const response = await fetch('http://localhost:8080/api/volunteer/' + volunteerId + '/task/' + taskId, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (response.ok) {
+                    const output = document.createElement("output");
+                    output.innerText = "Dodano"
+                    this.replaceWith(output);
+                }                
+
+            } catch (error) {
+                console.log(error);
+            }
+            
+        }
+
+        async function updateTasks() {
+
+
+
+        }
+
+        //TODO: change the way you get the select element (there is plenty with same id)
+
+        function addTasksToUpdate() {
+
+            const priority = document.getElementById("priority-taskId-"+this.dataset.taskId).value;
+            tasksToUpdate.push([this.dataset.taskId, priority]);
+            console.log(tasksToUpdate);
+
+        }
+
+        function uncheckCheckbox() {
+            document.getElementById("to_delete").checked = false;
+        }
+
+        function loadContent() {
+
+            getTasks();
+            getTasksToVolunteersContainer();
+            getVolunteersByProject();
+
+        }
+
+        document.getElementById("task").addEventListener("change", getVolunteersByProject)
+
+        
 
     </script>
     
