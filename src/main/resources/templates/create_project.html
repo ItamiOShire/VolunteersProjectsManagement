@@ -230,7 +230,7 @@
 
             const taskPriority = document.createElement("span");
             taskPriority.classList.add("priority");
-            taskPriority.innerText = data["priority"];
+            taskPriority.innerText = "Priorytet - " + data["priority"] + ", termin - " + data["deadline"];
 
             taskDiv.appendChild(taskHeader);
             taskDiv.appendChild(taskDesc);
@@ -255,8 +255,7 @@
                 });
 
                 if (response.ok) {
-                    const result = await response.text();
-                    console.log('Odpowiedz: ',result);
+                    console.log("Udało sie");
                 } else {
                     console.log('Blad serwera: ', await response.text());
                 }
