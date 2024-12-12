@@ -5,9 +5,7 @@ import org.example.springboottesting.DTO.VolunteerDTO;
 import org.example.springboottesting.service.VolunteerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -58,6 +56,19 @@ public class VolunteerController {
 
         if(volunteers != null) {
             return ResponseEntity.ok(volunteers);
+        }
+
+        return ResponseEntity.notFound().build();
+
+    }
+
+    @GetMapping("/{volunteerId}/task/{taskId}")
+    public ResponseEntity<String> addVolunteerToTask(@PathVariable Long volunteerId, @PathVariable Long taskId) {
+
+        boolean isAdded = volunteerService.addVolunteerToTask(volunteerId, taskId);
+
+        if(isAdded) {
+            return ResponseEntity.ok("Dodano");
         }
 
         return ResponseEntity.notFound().build();

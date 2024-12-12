@@ -1,7 +1,9 @@
 package org.example.springboottesting.service;
 
 import org.example.springboottesting.DTO.VolunteerDTO;
+import org.example.springboottesting.model.Task;
 import org.example.springboottesting.model.Volunteer;
+import org.example.springboottesting.repository.TaskRepository;
 import org.example.springboottesting.repository.VolunteerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,10 +17,12 @@ import java.util.Set;
 public class VolunteerService {
 
     private final VolunteerRepository volunteerRepository;
+    private final TaskRepository taskRepository;
 
     @Autowired
-    public VolunteerService(VolunteerRepository volunteerRepository) {
+    public VolunteerService(VolunteerRepository volunteerRepository, TaskRepository taskRepository) {
         this.volunteerRepository = volunteerRepository;
+        this.taskRepository = taskRepository;
     }
 
 
@@ -85,6 +89,22 @@ public class VolunteerService {
         }
 
         return volunteersDTO;
+
+    }
+
+    public boolean addVolunteerToTask(Long volunteerId, Long taskId) {
+
+        Volunteer volunteer = volunteerRepository.findById(volunteerId).orElse(null);
+        Task task = taskRepository.findById(taskId).orElse(null);
+
+        if (volunteer != null && task != null) {
+
+            volunteer.getTasks().add(task);
+            volunteerRepository.save(volunteer);
+            return true;
+        }
+
+        return false;
 
     }
 }
