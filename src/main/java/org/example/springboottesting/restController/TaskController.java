@@ -23,14 +23,14 @@ public class TaskController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<String> saveTasks(@RequestBody List<Task> tasks) {
+    public ResponseEntity<List<Task>> saveTasks(@RequestBody List<Task> tasks) {
 
         List<Task> savedTasks = taskService.saveTasks(tasks);
         if (!savedTasks.isEmpty()) {
-            return ResponseEntity.ok("Zadania zostały zapisane.");
+            return ResponseEntity.ok(savedTasks);
         }
 
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Błąd serwera, zadania nie zostały zapisane, spróbuj jeszcze raz za kilka minut.");
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @GetMapping("/project/{id}")
