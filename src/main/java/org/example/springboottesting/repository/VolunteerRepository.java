@@ -19,4 +19,7 @@ public interface VolunteerRepository extends JpaRepository<Volunteer, Long> {
             "SELECT 1 FROM Task tn WHERE tn.id = :taskId AND tn MEMBER OF v.tasks))")
     Set<Volunteer> findVolunteerWithTasksByProjectId(@Param("projectId") int projectId, @Param("taskId") int taskId);
 
+    @Query("SELECT DISTINCT v FROM Volunteer v JOIN v.projects p LEFT JOIN v.tasks t WHERE p.id = :projectId AND t.id = :taskId")
+    Set<Volunteer> findVolunteerWithTasksToDeleteByProjectId(@Param("projectId") int projectId, @Param("taskId") int taskId);
+
 }

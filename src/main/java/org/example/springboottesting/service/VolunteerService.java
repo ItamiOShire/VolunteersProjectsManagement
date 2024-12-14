@@ -107,4 +107,43 @@ public class VolunteerService {
         return false;
 
     }
+
+    public List<VolunteerDTO> getVolunteersWithTasksToDelete(int projectId, int taskId) {
+
+        Set<Volunteer> volunteers = volunteerRepository.findVolunteerWithTasksToDeleteByProjectId(projectId, taskId);
+
+        List<VolunteerDTO> volunteersDTO = new ArrayList<>();
+
+        for (Volunteer volunteer : volunteers) {
+            VolunteerDTO volunteerDTO = new VolunteerDTO();
+
+            volunteerDTO.setFnameAndLname(volunteer.getFirstName() + " " + volunteer.getLastName());
+            volunteerDTO.setEmail(volunteer.getEmail());
+            volunteerDTO.setId(volunteer.getId());
+
+            volunteersDTO.add(volunteerDTO);
+        }
+
+        return volunteersDTO;
+
+    }
+
+    public boolean deleteVolunteerFromTask(Long volunteerId, Long taskId) {
+
+        Task task = taskRepository.findById(taskId).orElse(null);
+
+        Volunteer volunteer = volunteerRepository.findById(volunteerId).orElse(null);
+
+        if (task != null && volunteer != null) {
+
+            volunteer.getTasks().remove(task);
+            volunteerRepository.save(volunteer);
+
+            return true;
+
+        }
+
+        return false;
+
+    }
 }

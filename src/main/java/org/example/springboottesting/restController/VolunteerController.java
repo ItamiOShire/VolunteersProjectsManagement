@@ -62,6 +62,19 @@ public class VolunteerController {
 
     }
 
+    @GetMapping("/withTasksToDelete/{taskId}/project/{projectId}")
+    public ResponseEntity<List<VolunteerDTO>> getVolunteerDataWithTasksToDeleteByProject(@PathVariable int taskId, @PathVariable int projectId) {
+
+        List<VolunteerDTO> volunteers = volunteerService.getVolunteersWithTasksToDelete(projectId, taskId );
+
+        if(volunteers != null) {
+            return ResponseEntity.ok(volunteers);
+        }
+
+        return ResponseEntity.notFound().build();
+
+    }
+
     @GetMapping("/{volunteerId}/task/{taskId}")
     public ResponseEntity<String> addVolunteerToTask(@PathVariable Long volunteerId, @PathVariable Long taskId) {
 
@@ -74,4 +87,18 @@ public class VolunteerController {
         return ResponseEntity.notFound().build();
 
     }
+
+    @DeleteMapping("/{volunteerId}/task/{taskId}")
+    public ResponseEntity<String> deleteVolunteerFromTask(@PathVariable Long volunteerId, @PathVariable Long taskId) {
+
+        boolean isDeleted = volunteerService.deleteVolunteerFromTask(volunteerId, taskId);
+
+        if(isDeleted) {
+            return ResponseEntity.ok("Usunięto");
+        }
+
+        return ResponseEntity.notFound().build();
+
+    }
+
 }
