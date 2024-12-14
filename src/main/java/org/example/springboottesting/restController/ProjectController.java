@@ -116,4 +116,53 @@ public class ProjectController {
             return ResponseEntity.internalServerError().body("Błąd serwera - nie znaleziono projektu lub użytkownika");
         }
     }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<String> updateProject(@RequestParam("title") String title,
+                                                @RequestParam("desc-long") String desc,
+                                                @RequestParam("img")MultipartFile img,
+                                                @RequestParam("tags") List<Long> tags,
+                                                @PathVariable Long id) {
+        String imgPath = "";
+        String filePath = "";
+        String filePathToWrite = "";
+        if (img.getSize() != 0L) {
+
+            String fileName = UUID.randomUUID().toString() + ".jpg";
+            filePath = "D:\\school\\sem7\\inzynierka\\temp\\SpringBootTesting\\src\\main\\resources\\static\\images\\" +fileName;
+            filePathToWrite = "\\images\\" + fileName;
+
+        }
+
+        Project project = projectService.updateProject(id,
+                title,
+                desc,
+                filePathToWrite,
+                tags);
+
+
+        if (!filePathToWrite.isEmpty()) {
+            try {
+                Path path = Paths.get(filePath);
+                Files.copy(
+                        img.getInputStream(),
+                        path,
+                        StandardCopyOption.REPLACE_EXISTING
+                );
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+
+        }
+
+        if (project != null) {
+
+            return ResponseEntity.ok(String.valueOf(project.getId()));
+
+        }
+
+        return ResponseEntity.badRequest().body("nie znaleziono projektu");
+
+
+    }
 }

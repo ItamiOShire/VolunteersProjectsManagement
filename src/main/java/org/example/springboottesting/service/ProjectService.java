@@ -42,8 +42,6 @@ public class ProjectService {
         project.setImgPath(path);
         project.setOrganisationId(organisationId);
 
-        System.out.println(tags);
-
         Set<Tag> tagSet = tagRepository.findAllByIdSorted(tags);
         project.setTags(tagSet);
         Project createdProject = projectRepository.save(project);
@@ -135,6 +133,30 @@ public class ProjectService {
         }
     }
 
+    public Project updateProject(Long projectId,
+                                 String title,
+                                 String desc,
+                                 String imgPath,
+                                 List<Long> tags) {
 
+        Project project = projectRepository.findById(projectId).orElse(null);
+
+        if (project != null) {
+
+            project.setTitle(title);
+            project.setDesc(desc);
+            if (!imgPath.isEmpty()) {
+                project.setImgPath(imgPath);
+            }
+            Set<Tag> tagSet = tagRepository.findAllByIdSorted(tags);
+            project.setTags(tagSet);
+
+
+            return  projectRepository.save(project);
+        }
+
+        return null;
+
+    }
 
 }
