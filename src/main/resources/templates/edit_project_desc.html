@@ -6,14 +6,17 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet"/>
+    
 
     <link rel="stylesheet" href="/css/main-layout.css">
-    <link rel="stylesheet" href="/css/form-layout.css">
     <link rel="stylesheet" href="/css/edit-project-desc.css">
+    <link rel="stylesheet" href="/css/form-layout.css">
     <title>Strona główna</title>
 </head>
-<body>
+<body onload="loadContent()">
 
     <header class="header">
 
@@ -49,30 +52,6 @@
 
         <section class="project-container">
 
-                <div class="img-container">
-
-                    <img src="images/logo2mini.jpg" alt="" class="project-img">
-
-                </div>
-
-            <div class="text-container">
-
-                <h2 class="project-tittle">Tytuł projektu</h2>
-
-                <h4 class="project-short-desc">Organizator: Organizacja 1 </h4>
-
-                <p class="project-long-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum voluptate cumque ducimus nesciunt sint ipsum nostrum provident, dolor voluptatum maiores quae praesentium. Repellat omnis exercitationem veritatis explicabo nesciunt consequuntur autem. Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero numquam sint consectetur illum, architecto iste possimus beatae blanditiis doloribus facere vitae consequatur nobis mollitia suscipit ipsum nisi quam nulla minima! Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odit, nobis natus! Reprehenderit, eaque quod? Impedit facere nostrum, assumenda recusandae, id optio necessitatibus, ad sapiente aliquid ratione esse ducimus cumque adipisci.</p>
-
-                <div class="tags-container">
-
-                    <h3 class="tag-highlight">Tagi:</h3>
-                    <p class="tags">Tag1</p>
-
-                </div>
-                
-
-            </div>
-
         </section>
 
         <section class="form-container">
@@ -86,18 +65,14 @@
                 <textarea name="desc" id="desc" required></textarea>
 
                 <label for="tags">Tagi</label>
-                <select name="tags" id="tags" class="chosen-select" multiple>
-
-                    <option value="val1">val1</option>
-                    <option value="val2">val2</option>
-                    <option value="val3">val3</option>
+                <select name="tags" id="tags" class="chosen-select" multiple required>
 
                 </select>
 
                 <label for="img">Obrazek</label>
                 <input type="file" name="img" id="img">
 
-                <input type="submit" value="Dodaj projekt">
+                <button type="button" onclick="saveProject()">Zapisz projekt</button>
 
             </form>
 
@@ -117,12 +92,200 @@
 
     </footer>
 
-    <script>
+    <script defer>
 
+        
+
+        const urlArray = window.location.href.split("/");
+        const projectId = urlArray.at(-1);  
+
+        async function getTags() {
+
+            try {
+                const response = await fetch('http://localhost:8080/api/tag/all' , {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                const responseTagsInProject = await fetch('http://localhost:8080/api/project/' + projectId , {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (response.ok && responseTagsInProject.ok) {
+
+                    const tags = await response.json();
+                    const project = await responseTagsInProject.json();
+
+                    const tagsId = [];
+
+                    project.tags.forEach(tag => {
+                        tagsId.push(tag.id)
+                    });
+
+                    console.log(tagsId);
+
+                    tags.forEach(tag => {
+
+                        const option = document.createElement("option");
+
+                        option.value = tag.id;
+                        option.innerText = tag.desc;
+                        option.id = "tagId" + tag.id;
+
+                        if (tagsId.includes(tag.id)){
+
+                            option.selected = "selected";
+
+                        }
+                        document.getElementById("tags").appendChild(option);
+
+                    })
+
+                }
+
+                fillFormData();
+
+            } catch (error) {
+                console.log(error);
+            }
+            
+        }
+
+        async function fillFormData() {
+
+            try {
+                const response = await fetch('http://localhost:8080/api/project/' + projectId , {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (response.ok) {
+
+                    const project = await response.json();
+
+                    document.getElementById("tittle").value = project.title;
+
+                    document.getElementById("desc").value = project.desc;
+
+                   /* const select = document.querySelectorAll("select#tags > option");
+
+                    const selectArray = Array.from(select);
+
+                    const tagsArray = [];
+
+                    project.tags.forEach(tag => {
+                        console.log("aaa");
+                        const option = document.getElementById("tagId"+tag.id);
+                        console.log(option.value);
+                        option.selected = "selected";
+
+                    })*/
+
+
+                }
+
+            } catch (error) {
+
+                console.log(error);
+
+            }
+
+        }
+
+        async function getProject() {
+
+            const root = document.querySelector("section.project-container");
+        
+            console.log(projectId);
+
+            try {
+                const response = await fetch('http://localhost:8080/api/project/' + projectId, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (response.ok) {
+                    const project = await response.json();
+                    console.log(project);
+                    const imgContainer = document.createElement("div");
+                    imgContainer.classList.add("img-container");
+
+                    const img = document.createElement("img");
+                    img.src = project.imgPath;
+                    img.alt = "zdjecie";
+                    img.classList.add("project-img")
+
+                    const textContainer = document.createElement("div");
+                    textContainer.classList.add("text-container");
+
+                    const projectTitle = document.createElement("h2");
+                    projectTitle.classList.add("project-tittle");
+                    projectTitle.innerHTML = project.title;
+
+                    const projectShortDesc = document.createElement("h4");
+                    projectShortDesc.classList.add("project-short-desc");
+                    projectShortDesc.innerHTML = "Organizacja - " + project.orgName;
+
+                    const projectLongDesc = document.createElement("p");
+                    projectLongDesc.classList.add("project-long-desc");
+                    projectLongDesc.innerHTML = project.desc;
+
+                    const tagsContainer = document.createElement("div");
+                    tagsContainer.classList.add("tags-container");
+
+                    const tags = document.createElement("p");
+                    tags.classList.add("tags");
+
+                    for (let x in project.tags) {
+                        tags.innerHTML += "[" + project.tags[x].desc + "] ";
+                    }
+
+
+                    imgContainer.appendChild(img);
+
+                    textContainer.appendChild(projectTitle);
+                    textContainer.appendChild(projectShortDesc);
+                    textContainer.appendChild(projectLongDesc);
+
+                    tagsContainer.appendChild(tags);
+
+                    textContainer.appendChild(tagsContainer);
+
+                    root.appendChild(imgContainer);
+                    root.appendChild(textContainer);
+
+                } else {
+                    console.log("blad serwera");
+                }
+
+            } catch (error) {
+                console.log(error);
+            }
+    }
+
+    function loadScript(src) {
+        var script = document.createElement('script');
+        script.src = src;
+        script.async = false;
+        document.head.appendChild(script);
+}
+
+    async function loadContent() {
+
+        await getProject();
+        await getTags();
         $(".chosen-select").chosen();
-        document.getElementById('tags_chosen').style.width = "";
-        document.getElementsByClassName('chosen-search-input')[0].setAttribute('value',"Wybierz tagi");
-        document.getElementsByClassName('chosen-search-input')[0].setAttribute('placeholder',"chosen-search-input");
+
+    }
 
     </script>
     
