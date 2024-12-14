@@ -92,7 +92,7 @@
             console.log(projectId);
 
             try {
-                const response = await fetch('http://localhost:8080/api/project/volunteer/' + projectId, {
+                const response = await fetch('http://localhost:8080/api/project/' + projectId, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

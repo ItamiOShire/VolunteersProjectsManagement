@@ -95,7 +95,7 @@ public class ProjectController {
 
     }
 
-    @GetMapping("/volunteer/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<ProjectDTO> getProject(@PathVariable Long id) {
 
         ProjectDTO project = projectService.getProjectById(id);
