@@ -56,13 +56,13 @@
 
         <section class="form-container">
 
-            <form action="" class="form">
+            <form action="" class="form" name="projectForm">
 
                 <label for="tittle">Tytuł</label>
-                <input type="text" name="tittle" id="tittle" required>
+                <input type="text" name="title" id="tittle" required>
 
-                <label for="desc">Opis projektu</label>
-                <textarea name="desc" id="desc" required></textarea>
+                <label for="desc-long">Opis projektu</label>
+                <textarea name="desc-long" id="desc" required></textarea>
 
                 <label for="tags">Tagi</label>
                 <select name="tags" id="tags" class="chosen-select" multiple required>
@@ -72,7 +72,7 @@
                 <label for="img">Obrazek</label>
                 <input type="file" name="img" id="img">
 
-                <button type="button" onclick="saveProject()">Zapisz projekt</button>
+                <button type="button" onclick="updateProject()">Zapisz projekt</button>
 
             </form>
 
@@ -174,21 +174,6 @@
 
                     document.getElementById("desc").value = project.desc;
 
-                   /* const select = document.querySelectorAll("select#tags > option");
-
-                    const selectArray = Array.from(select);
-
-                    const tagsArray = [];
-
-                    project.tags.forEach(tag => {
-                        console.log("aaa");
-                        const option = document.getElementById("tagId"+tag.id);
-                        console.log(option.value);
-                        option.selected = "selected";
-
-                    })*/
-
-
                 }
 
             } catch (error) {
@@ -272,12 +257,33 @@
             }
     }
 
-    function loadScript(src) {
-        var script = document.createElement('script');
-        script.src = src;
-        script.async = false;
-        document.head.appendChild(script);
-}
+    async function updateProject() {
+
+        const form = document.forms["projectForm"];
+
+        const formData = new FormData(form);
+
+        const data = Object.fromEntries(formData.entries());
+
+        console.log(formData);
+
+        try {
+        const response = await fetch("http://localhost:8080/api/project/" + projectId , {
+            method: 'PATCH',
+            body: formData
+        });
+
+        if (response.ok) {
+            alert("udało sie zaktualizowac projekt")
+        } else {
+            alert("nie udalo sie");
+        }
+
+        } catch (error) {
+            console.log(error);
+        }
+        
+    }
 
     async function loadContent() {
 
