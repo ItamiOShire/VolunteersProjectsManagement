@@ -106,7 +106,7 @@
 
             <section class="volunteers-container-in">
 
-                <h1>Lista członków</h1>
+                <h1>Dodaj wolontariuszy do zadania</h1>
     
                 <div class="volunteers" id ="volunteers">
     
@@ -115,6 +115,19 @@
                 </div>
     
             </section>
+
+            <section class="volunteers-container-in">
+                <h1>Usuń wolontariuszy z zadania</h1>
+    
+                <div class="volunteers" id ="volunteers-to-delete">
+    
+                   
+    
+                </div>
+    
+            </section>
+
+            
 
         </section>
 
@@ -173,6 +186,7 @@
                     });
 
                     getVolunteersByProject();
+                    getVolunteersByProjectToDelete();
                 }
 
             } catch (error) {
@@ -199,6 +213,8 @@
 
                     const result = await response.json();
 
+                    console.log(result);
+
                     result.forEach(volunteer => {
 
                         console.log(volunteer);
@@ -219,6 +235,44 @@
             }
 
 
+        }
+
+        async function getVolunteersByProjectToDelete() {
+
+            const root = document.getElementById("volunteers-to-delete");
+            const taskId = document.getElementById("task").value;
+            root.innerHTML = "";
+
+            try {
+                    const response = await fetch('http://localhost:8080/api/volunteer/withTasksToDelete/' +taskId + '/project/' + projectId, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (response.ok) {
+
+                    const result = await response.json();
+
+                    result.forEach(volunteer => {
+
+                        console.log(volunteer);
+
+                        const div = document.createElement("div");
+                        div.classList.add("volunteer");
+                        div.innerHTML = "<span>" + volunteer.fnameAndLname[0] + "</span> " + volunteer.fnameAndLname + 
+                        '<button type = "button" class="add-volunteer-to-task-button" onclick = "deleteVolunteerFromTask(' + volunteer.id + ', this)"> Usuń </button>';
+
+                        root.appendChild(div);
+                        
+                    });
+
+                }
+
+            } catch (error) {
+                console.log(error);
+            }
         }
 
         async function getTasks() {
@@ -435,6 +489,30 @@
             
         }
 
+        async function deleteVolunteerFromTask(volunteerId, button) {
+
+            const taskId = document.getElementById("task").value;
+
+            try {
+                const response = await fetch('http://localhost:8080/api/volunteer/' + volunteerId + '/task/' + taskId, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (response.ok) {
+                    const output = document.createElement("output");
+                    output.innerText = "Usunięto";
+                    button.replaceWith(output);
+                }                
+
+            } catch (error) {
+                console.log(error);
+            }
+
+        }
+
         async function updateTasks() {
 
             const priorityId = this.value;
@@ -522,7 +600,9 @@
 
         }
 
-        document.getElementById("task").addEventListener("change", getVolunteersByProject)
+        document.getElementById("task").addEventListener("change", getVolunteersByProject);
+
+        document.getElementById("task").addEventListener("change", getVolunteersByProjectToDelete);
 
         
 
