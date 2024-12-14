@@ -120,7 +120,7 @@
                 const projectId = urlArray.at(-1);
 
                 try {
-                        const response = await fetch('http://localhost:8080/api/project/volunteer/' + projectId, {
+                        const response = await fetch('http://localhost:8080/api/project/' + projectId, {
                         method: 'GET',
                         headers: {
                             'Content-Type': 'application/json',
@@ -195,7 +195,7 @@
             const projectId = urlArray.at(-1);
 
             try {
-                    const response = await fetch('http://localhost:8080/api/project/' + projectId, {
+                    const response = await fetch('http://localhost:8080/api/volunteer/project/' + projectId, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
