@@ -1,6 +1,8 @@
 package org.example.springboottesting.restController;
 
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.example.springboottesting.model.Task;
 import org.example.springboottesting.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,5 +72,17 @@ public class TaskController {
             return ResponseEntity.ok("Usunięto!");
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Usuwanie nie powiodło się");
+    }
+
+    @GetMapping("/volunteer")
+    public ResponseEntity<List<Task>> getTasksByVolunteerId(HttpSession session) {
+
+        List<Task> tasks = taskService.getTasksByVolunteerId(Long.parseLong(session.getAttribute("id").toString()));
+
+        if (!tasks.isEmpty()) {
+            return ResponseEntity.ok(tasks);
+        }
+        return ResponseEntity.noContent().build();
+
     }
 }
