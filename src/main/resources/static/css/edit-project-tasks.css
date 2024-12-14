@@ -1,9 +1,22 @@
+section.tasks-container {
+    grid-area: tasks;
+}
+
+section.tasks-from-container {
+    grid-area: form;
+}
+
+section.volunteers-container {
+    grid-area: volunteers;
+}
+
 .main {
     display:grid;
-    grid-template-columns: 40% 40%;
-    justify-content: center;
+    grid-template-areas: 'tasks form' 'volunteers volunteers';
     gap:2em;
+    padding:2em;
 }
+
 
 section.tasks-container, section.volunteers-container-in, section.volunteers-container {
     background-color: rgb(173, 178, 229);
@@ -11,6 +24,7 @@ section.tasks-container, section.volunteers-container-in, section.volunteers-con
     border-radius: 2em;
     text-align: center;
     height:100%;
+    width: 100%;
     position:relative;
     box-shadow: 0.5em 0.5em 2em rgba(101,85,143,0.80);
 }
@@ -86,6 +100,7 @@ section.volunteers-container {
 
 section.volunteers-container > section.volunteers-container-in {
     flex: 3 1 0;
+    margin:10px;
 }
 
 section.tasks-choose-container {
