@@ -46,19 +46,23 @@ section.tasks-container {
     background-image: linear-gradient(rgb(173, 178, 229),rgb(115,124,255) );
     border-radius: 2em;
     text-align: center;
+    height:100%;
+    position:relative;
+    box-shadow: 0.5em 0.5em 2em rgba(101,85,143,0.80);
 }
 
 .tasks {
     background-color: antiquewhite;
-    border-radius: 1em;
-    margin:0 2em;
+    border-radius: 2em 0 0 2em ;
+    margin:0 1em 1em 1em;
     display:grid;
     grid-template-columns: 80%;
     justify-content: space-around;
     gap:5px;
     padding:5px 0;
     overflow:auto;
-    height:400px;
+    height:260px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 
 .task {
