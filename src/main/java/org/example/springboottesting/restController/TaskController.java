@@ -85,4 +85,19 @@ public class TaskController {
         return ResponseEntity.noContent().build();
 
     }
+
+    @GetMapping("/volunteer/project/{id}")
+    public ResponseEntity<List<Task>> getTasksByVolunteerIdAndProjectId(@PathVariable int id, HttpSession session) {
+
+        List<Task> tasks = taskService.getTasksByVolunteerIdAndProjectId (Integer.parseInt(session.getAttribute("id").toString()), id);
+
+        System.out.println(tasks);
+
+        if (tasks != null) {
+            return ResponseEntity.ok(tasks);
+        }
+
+        return ResponseEntity.notFound().build();
+
+    }
 }

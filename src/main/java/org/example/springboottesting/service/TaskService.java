@@ -94,4 +94,12 @@ public class TaskService {
 
         return null;
     }
+
+    public List<Task> getTasksByVolunteerIdAndProjectId(int volunteerId, int projectId) {
+
+        List<Task> tasks = taskRepository.getTasksByProjectIdAndVolunteerId(projectId, volunteerId);
+
+        return tasks;
+
+    }
 }
