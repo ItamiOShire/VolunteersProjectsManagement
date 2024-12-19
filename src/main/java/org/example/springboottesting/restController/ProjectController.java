@@ -163,6 +163,20 @@ public class ProjectController {
 
         return ResponseEntity.badRequest().body("nie znaleziono projektu");
 
+    }
+
+    @GetMapping("/search/{word}")
+    public ResponseEntity<List<ProjectDTO>> searchProjects(@PathVariable String word) {
+
+        List<ProjectDTO> projects = projectService.getSearchedProjects(word);
+
+        if (projects.isEmpty()) {
+
+            return ResponseEntity.notFound().build();
+
+        }
+
+        return ResponseEntity.ok(projects);
 
     }
 }

@@ -159,4 +159,26 @@ public class ProjectService {
 
     }
 
+    public List<ProjectDTO> getSearchedProjects(String word) {
+
+        Set<Project> projects = projectRepository.findProjectsByWord(word);
+
+        List<ProjectDTO> projectsDTO = new ArrayList<>();
+
+        for(Project project : projects) {
+
+            ProjectDTO projectDTO = new ProjectDTO();
+            projectDTO.setDesc(project.getDesc());
+            projectDTO.setImgPath(project.getImgPath());
+            projectDTO.setTitle(project.getTitle());
+            projectDTO.setTags(project.getTags());
+            projectDTO.setId(project.getId());
+
+            projectsDTO.add(projectDTO);
+        }
+
+        return projectsDTO;
+
+    }
+
 }
