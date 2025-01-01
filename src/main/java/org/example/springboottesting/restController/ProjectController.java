@@ -37,7 +37,7 @@ public class ProjectController {
                                  HttpSession session) {
 
         String fileName = UUID.randomUUID().toString() + ".jpg";
-        String filePath = "D:\\school\\sem7\\inzynierka\\temp\\SpringBootTesting\\src\\main\\resources\\static\\images\\" +fileName;
+        String filePath = "D:\\school\\sem7\\inzynierka\\temp\\SpringBootTesting\\src\\main\\resources\\static\\images\\" + fileName;
         String filePathToWrite = "\\images\\" + fileName;
         Project createdProject = projectService.createProject(tittle,
                 desc,

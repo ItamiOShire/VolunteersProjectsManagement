@@ -35,6 +35,18 @@ public class Task {
     @JsonIgnore
     private Set<Volunteer> volunteers;
 
+    @ManyToMany(mappedBy = "suggestedTasks", fetch = FetchType.EAGER)
+    @JsonIgnore
+    private Set<Volunteer> suggestedVolunteers;
+
+    public Set<Volunteer> getSuggestedVolunteers() {
+        return suggestedVolunteers;
+    }
+
+    public void setSuggestedVolunteers(Set<Volunteer> suggestedVolunteers) {
+        this.suggestedVolunteers = suggestedVolunteers;
+    }
+
     public Set<Volunteer> getVolunteers() {
         return volunteers;
     }

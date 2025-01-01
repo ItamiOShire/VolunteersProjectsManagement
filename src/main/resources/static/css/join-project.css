@@ -59,6 +59,24 @@ section.project-container {
     top:0;
 }
 
+.project-join-button {
+    width:60%;
+    height:2em;
+    border-radius:0.5em;
+    margin:0.5em 0;
+    border:0;
+    box-shadow:inset rgba(0, 0, 0, 0.31) 3px 2px 5px, rgba(0, 0, 0, 0.23) 0px 0px 0px 0px inset;
+    color:white;
+    background-color: rgba(101,85,143,1.0);
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px -7px 10px 0px inset;
+    transition: background-color 0.3s ease;
+}
+
+.project-join-button:hover{
+    background-color: rgb(128, 107, 181);
+}
+
 div.popup-buttons-conainter {
     text-align: center;
 }

@@ -89,6 +89,7 @@ public class TaskController {
     @GetMapping("/volunteer/project/{id}")
     public ResponseEntity<List<Task>> getTasksByVolunteerIdAndProjectId(@PathVariable int id, HttpSession session) {
 
+        System.out.println(id + " " + session.getAttribute("id").toString());
         List<Task> tasks = taskService.getTasksByVolunteerIdAndProjectId (Integer.parseInt(session.getAttribute("id").toString()), id);
 
         System.out.println(tasks);
@@ -100,4 +101,43 @@ public class TaskController {
         return ResponseEntity.notFound().build();
 
     }
+
+    @GetMapping("/notAttended/volunteer/project/{id}")
+    public ResponseEntity<List<Task>> getTasksNotAttendedByVolunteerByVolunteerIdAndProjectId(@PathVariable int id, HttpSession session) {
+
+        List<Task> tasks = taskService.getTasksNotAttendedByVolunteer(session.getAttribute("id").toString(), id);
+
+        if (!tasks.isEmpty()) {
+            return ResponseEntity.ok(tasks);
+        }
+
+        return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/suggested/volunteer/project/{id}")
+    public ResponseEntity<List<Task>> getSuggestedTasksByVolunteerIdAndProjectId(@PathVariable int id, HttpSession session) {
+
+        List<Task> tasks = taskService.getVolunteersSuggestedTasks(session.getAttribute("id").toString(), id);
+
+        if (!tasks.isEmpty()) {
+            return ResponseEntity.ok(tasks);
+        }
+
+        return ResponseEntity.notFound().build();
+
+    }
+
+    @PutMapping("{taskId}/suggested/volunteer")
+    public ResponseEntity<String> saveSuggestedTask(@PathVariable Long taskId, HttpSession session) {
+
+        boolean isSaved = taskService.saveSuggestedTask(taskId, session.getAttribute("id").toString());
+
+        if (isSaved) {
+            return ResponseEntity.ok("Zgłoszono chęć uczestniczenia");
+        }
+
+        return ResponseEntity.notFound().build();
+    }
+
+
 }

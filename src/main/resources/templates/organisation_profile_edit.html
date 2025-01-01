@@ -10,12 +10,12 @@
     <link rel="stylesheet" href="/css/organisation-profile-edit.css">
     <title>Strona główna</title>
 </head>
-<body onload = "get()">
+<body>
 
     <header class="header">
 
         <div class="logo-container">
-            <img src="images/logo.png" alt="logo" class="logo">
+            <img src="/images/logotst.png" alt="logo" class="logo">
         </div>
 
         <nav class="nav-menu">
@@ -42,7 +42,7 @@
         
         <section class="desc-form">
 
-            <form action="" class="form">
+            <form action="" class="form" name="organisation-form">
 
                 <label for="desc">Opis</label>
                 <textarea name="desc" id="desc"></textarea>
@@ -50,30 +50,11 @@
                 <label for="img">Zdjęcie</label>
                 <input type="file" name="img" id="img">
 
-                <button type="button" class="form-button">Zapisz</button>
+                <button type="button" class="form-button" onclick = "saveOrganisationDesc()">Zapisz</button>
 
             </form>
 
         </section>
-
-        <section class="profile-desc">
-
-            <div class="desc-container">
-
-                <div class="img-container">
-                    <img src="images/logo.png" alt="zdjęcie profilu organizacji" class="organisation-img">
-                </div>
-
-                <div class="text-container">
-                    <p class="organisation-desc">
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nam officia, neque tenetur ipsum perferendis nihil accusamus recusandae nulla sequi cupiditate at itaque laborum hic, ex quaerat deleniti architecto, quo eligendi!
-                    </p>
-                </div>
-
-            </div>
-
-        </section>
-
         
 
     </main>
@@ -92,42 +73,43 @@
 
     <script>
 
-        var root1 = document.getElementsByClassName("projects-container")[0];
-        async function get() {
+        const root = document.getElementById("desc-container");
+        async function getOrganisationDesc() {
             try {
-                const response = await fetch('getData', {
+                const response = await fetch('http://localhost:8080/api/organisationProfile/', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                 });
 
-                if (response.ok) {
+                if (response.ok && response.status === 204) {
                     const result = await response.json();
-                    result.forEach(person => {
 
-                        const projectDiv = document.createElement("div");
-                        projectDiv.classList.add("project");
+                        const descContainer = document.createElement("div");
+                        descContainer.classList.add("desc-container");
 
-                        const imgSection = document.createElement("section");
+                        const imgDiv = document.createElement("div");
                         imgSection.classList.add("img-container");
 
                         const img = document.createElement("img");
                         img.alt = "zdjecie";
                         img.classList.add("project-img");
+                        img.src = result.imgPath;
 
-                        const textSection = document.createElement("section");
+                        const textDiv = document.createElement("div");
                         textSection.classList.add("text-container");
+                        textDiv.innerHTML = result.desc;
 
-                        textSection.innerHTML = ' <h2 class="project-tittle">' + person.firstName + ' </h2> <h4 class="project-short-desc">' + person.lastName + '</h4>';
+                        const descParagraph = document.createElement("p");
+                        descParagraph.classList.add("organisation-desc");
+                        descParagraph.innerHTML = result.desc;
 
-                        imgSection.appendChild(img);
-                        projectDiv.appendChild(imgSection);
-                        projectDiv.appendChild(textSection);
-                        root1.appendChild(projectDiv);
-
-
-                    })
+                        imgDiv.appendChild(img);
+                        textDiv.appendChild(descParagraph);
+                        descContainer.appendChild(imgDiv);
+                        descContainer.appendChild(textDiv);
+                        root.appendChild(descContainer);
 
                 } else {
                     console.log('Blad odpowiedzi serwera', response.body);
@@ -138,6 +120,40 @@
             }
 
         }
+
+        async function saveOrganisationDesc() {
+
+            const form = document.forms["organisation-form"];
+
+            const formData = new FormData(form);
+
+            const data = Object.fromEntries(formData.entries());
+
+            console.log(data);
+
+
+            try {
+                const response = await fetch('http://localhost:8080/api/organisationProfile/', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+
+                    console.log("udało się zapisać dane");
+
+                }
+                else {
+                    console.log("nie udało się zapisać danych");
+                }
+
+                
+            } catch (error) {
+                console.log(error);
+            }
+
+        }
+
     </script>
     
 </body>

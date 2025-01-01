@@ -46,6 +46,22 @@ public class Volunteer {
     )
     private Set<Task> tasks;
 
+    @ManyToMany
+    @JoinTable(
+            name = "Task_Suggestions",
+            joinColumns = @JoinColumn(name = "volunteerID"),
+            inverseJoinColumns = @JoinColumn(name = "taskID")
+    )
+    private Set<Task> suggestedTasks;
+
+    public Set<Task> getSuggestedTasks() {
+        return suggestedTasks;
+    }
+
+    public void setSuggestedTasks(Set<Task> suggestedTasks) {
+        this.suggestedTasks = suggestedTasks;
+    }
+
     public Set<Task> getTasks() {
         return tasks;
     }

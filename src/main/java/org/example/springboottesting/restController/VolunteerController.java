@@ -62,6 +62,19 @@ public class VolunteerController {
 
     }
 
+    @GetMapping("/withSuggestedTasks/{taskId}/project/{projectId}")
+    public ResponseEntity<List<VolunteerDTO>> getVolunteerDataWithSuggestedTasksByProject(@PathVariable int taskId, @PathVariable int projectId) {
+
+        List<VolunteerDTO> volunteers = volunteerService.getVolunteersWithSuggestedTasksByProject(projectId, taskId );
+
+        if(volunteers != null) {
+            return ResponseEntity.ok(volunteers);
+        }
+
+        return ResponseEntity.notFound().build();
+
+    }
+
     @GetMapping("/withTasksToDelete/{taskId}/project/{projectId}")
     public ResponseEntity<List<VolunteerDTO>> getVolunteerDataWithTasksToDeleteByProject(@PathVariable int taskId, @PathVariable int projectId) {
 

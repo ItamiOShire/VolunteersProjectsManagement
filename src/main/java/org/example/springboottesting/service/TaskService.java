@@ -43,8 +43,6 @@ public class TaskService {
                 Long.parseLong(
                 Integer.valueOf(taskId).toString())).orElse(null);
 
-
-
         if (task == null) {
             return null;
         }
@@ -100,6 +98,37 @@ public class TaskService {
         List<Task> tasks = taskRepository.getTasksByProjectIdAndVolunteerId(projectId, volunteerId);
 
         return tasks;
+
+    }
+
+    public List<Task> getTasksNotAttendedByVolunteer(String volunteerId, int projectId) {
+
+        List<Task> tasks = taskRepository.getTasksByProjectIdAndVolunteerIdNotAttendedByVolunteer(projectId, Integer.parseInt(volunteerId));
+
+        return tasks;
+
+    }
+
+    public List<Task> getVolunteersSuggestedTasks(String volunteerId, int projectId) {
+        List<Task> tasks = taskRepository.getVolunteerSuggestedTasksByVolunteerIdAndProjectId(Integer.parseInt(volunteerId), projectId);
+
+        return tasks;
+    }
+
+    public boolean saveSuggestedTask(Long taskId, String volunteerId) {
+
+        Volunteer volunteer = volunteerRepository.findById(Long.parseLong(volunteerId)).orElse(null);
+
+        Task task = taskRepository.findById(taskId).orElse(null);
+
+        if (volunteer != null && task != null) {
+            volunteer.getSuggestedTasks().add(task);
+            volunteerRepository.save(volunteer);
+
+            return true;
+        }
+
+        return false;
 
     }
 }

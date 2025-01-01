@@ -8,12 +8,12 @@
     <link rel="stylesheet" href="/css/organisation-profile.css">
     <title>Strona główna</title>
 </head>
-<body onload = "getOrganisationData()">
+<body onload = "loadContent()">
 
     <header class="header">
 
         <div class="logo-container">
-            <img src="images/logo.png" alt="logo" class="logo">
+            <img src="/images/logotst.png" alt="logo" class="logo">
         </div>
 
         <nav class="nav-menu">
@@ -57,23 +57,9 @@
 
         </section>
 
-        <section class="profile-desc">
+        <section class="profile-desc" id="profile-desc">
 
-            <div class="desc-container">
-
-                <div class="img-container">
-                    <img src="/images/logo.png" alt="zdjęcie profilu organizacji" class="organisation-img">
-                </div>
-
-                <div class="text-container">
-                    <p class="organisation-desc">
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nam officia, neque tenetur ipsum perferendis nihil accusamus recusandae nulla sequi cupiditate at itaque laborum hic, ex quaerat deleniti architecto, quo eligendi!
-                    </p>
-
-                    <button class="profile-edit-button">Edytuj opis</button>
-                </div>
-
-            </div>
+            
 
         </section>
         
@@ -84,7 +70,7 @@
 
     <footer class="footer">
 
-        <div class="footer-col1"><img src="/images/logo2mini.png" alt=""></div>
+        <div class="footer-col1"><img src="/images/logotst.png" alt=""></div>
         <div class="footer-col2">col2</div>
         <div class="footer-col3">col3</div>
         <div class="footer-col4">col4</div>
@@ -185,6 +171,108 @@
             }
 
         }
+
+        async function getOrganisationDesc() {
+
+            const root = document.getElementById("profile-desc")
+
+            try {
+                const response = await fetch('http://localhost:8080/api/organisationProfile/', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (response.ok && response.status === 200) {
+                    const result = await response.json();
+
+                        const descContainer = document.createElement("div");
+                        descContainer.classList.add("desc-container");
+
+                        const imgDiv = document.createElement("div");
+                        imgDiv.classList.add("img-container");
+
+                        const img = document.createElement("img");
+                        img.alt = "zdjecie";
+                        img.classList.add("project-img");
+                        img.src = result.imgPath;
+
+                        const textDiv = document.createElement("div");
+                        textDiv.classList.add("text-container");
+
+                        const descParagraph = document.createElement("p");
+                        descParagraph.classList.add("organisation-desc");
+                        if (response.status === 200) {
+                            descParagraph.innerHTML = result.desc;
+                        } else {
+                            descParagraph.innerHTML = "Nie masz jeszcze stworzonego opisu"
+                        }
+
+                        const button = document.createElement("button");
+                        button.type = "button";
+                        button.classList.add("profile-edit-button");
+                        button.src = "http://localhost:8080/organisation/profile/edit/desc";
+                        button.innerHTML = "Edytuj opis";
+
+                        imgDiv.appendChild(img);
+                        textDiv.appendChild(descParagraph);
+                        textDiv.appendChild(button);
+                        descContainer.appendChild(imgDiv);
+                        descContainer.appendChild(textDiv);
+
+                        root.appendChild(descContainer);
+
+                } else if (response.ok && response.status === 204) {
+
+                        const descContainer = document.createElement("div");
+                        descContainer.classList.add("desc-container");
+
+                        const imgDiv = document.createElement("div");
+                        imgDiv.classList.add("img-container");
+
+                        const textDiv = document.createElement("div");
+                        textDiv.classList.add("text-container");
+
+                        const descParagraph = document.createElement("p");
+                        descParagraph.classList.add("organisation-desc");
+                        descParagraph.style.marginBottom = "5em";
+                        descParagraph.innerHTML = "Nie masz jeszcze stworzonego opisu"
+
+                        const button = document.createElement("button");
+                        button.type = "button";
+                        button.classList.add("profile-edit-button");
+                        button.innerHTML = "Edytuj opis";
+                        button.addEventListener("click", goToEditDesc);
+
+                        textDiv.appendChild(descParagraph);
+                        textDiv.appendChild(button);
+                        descContainer.appendChild(imgDiv);
+                        descContainer.appendChild(textDiv);
+
+                        root.appendChild(descContainer);
+                        
+
+                } else {
+                    console.log('Blad odpowiedzi serwera', response.body);
+                    
+                }
+
+            } catch (error) {
+                console.error('Error', error);
+            }
+
+        }
+
+        function goToEditDesc() {
+            location.href = "http://localhost:8080/organisation/profile/edit/desc";
+        }
+
+        function loadContent() {
+            getOrganisationData();
+            getOrganisationDesc();
+        }
+
     </script>
     
 </body>

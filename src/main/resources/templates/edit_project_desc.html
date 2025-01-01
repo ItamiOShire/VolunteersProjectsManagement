@@ -21,7 +21,7 @@
     <header class="header">
 
         <div class="logo-container">
-            <img src="images/logo.png" alt="logo" class="logo">
+            <img src="/images/logotst.png" alt="logo" class="logo">
         </div>
 
         <nav class="nav-menu">
@@ -44,8 +44,8 @@
     <hr class="section-line">
 
     <section class="project-nav-container">
-        <button type="button" class="desc-managment active" >Projekt</button>
-        <button type="button" class="tasks-managment">Zadania</button>
+        <button type="button" class="desc-managment active" onclick = "goToEditDesc()">Projekt</button>
+        <button type="button" class="tasks-managment" onclick = "goToEditTasks()">Zadania</button>
     </section>
 
     <main class="main">
@@ -85,7 +85,7 @@
 
     <footer class="footer">
 
-        <div class="footer-col1"><img src="images/logo2mini.png" alt=""></div>
+        <div class="footer-col1"><img src="/images/logotst.png" alt="logo"></div>
         <div class="footer-col2">col2</div>
         <div class="footer-col3">col3</div>
         <div class="footer-col4">col4</div>
@@ -94,8 +94,7 @@
 
     <script defer>
 
-        
-
+    
         const urlArray = window.location.href.split("/");
         const projectId = urlArray.at(-1);  
 
@@ -263,8 +262,6 @@
 
         const formData = new FormData(form);
 
-        const data = Object.fromEntries(formData.entries());
-
         console.log(formData);
 
         try {
@@ -291,6 +288,14 @@
         await getTags();
         $(".chosen-select").chosen();
 
+    }
+
+    function goToEditDesc() {
+        location.href = "http://localhost:8080/organisation/projects/edit/desc/" + projectId;
+    }
+
+    function goToEditTasks() {
+        location.href = "http://localhost:8080/organisation/projects/edit/tasks/" + projectId;
     }
 
     </script>

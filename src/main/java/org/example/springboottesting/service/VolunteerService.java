@@ -146,4 +146,24 @@ public class VolunteerService {
         return false;
 
     }
+
+    public List<VolunteerDTO> getVolunteersWithSuggestedTasksByProject(int projectId, int taskId) {
+
+        Set<Volunteer> volunteers = volunteerRepository.findVolunteerWithSuggestedTasksByProjectId(projectId, taskId);
+
+        List<VolunteerDTO> volunteersDTO = new ArrayList<>();
+
+        for (Volunteer volunteer : volunteers) {
+            VolunteerDTO volunteerDTO = new VolunteerDTO();
+
+            volunteerDTO.setFnameAndLname(volunteer.getFirstName() + " " + volunteer.getLastName());
+            volunteerDTO.setEmail(volunteer.getEmail());
+            volunteerDTO.setId(volunteer.getId());
+
+            volunteersDTO.add(volunteerDTO);
+        }
+
+        return volunteersDTO;
+
+    }
 }

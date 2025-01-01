@@ -1,3 +1,5 @@
+
+/*
 * {
     box-sizing: border-box;
 }
@@ -25,6 +27,9 @@ body, html {
 .main{
     z-index: 1;
 }
+    */
+
+    /*
 
 .logo-container {
     display: inline-block;
@@ -42,7 +47,9 @@ body, html {
     margin-top:1em;
     margin-left:2em;
 }
+    */
 
+/*
 .nav-menu {
     flex-basis:92%;
     display: flex;
@@ -84,6 +91,7 @@ body, html {
     margin-top: 2em;
     margin-bottom: 2em;
 }
+    */
 
 .content-container {
     background-color: rgb(173, 178, 229);
@@ -113,7 +121,7 @@ body, html {
     object-fit: cover;
     border-radius:2em;
 }
-
+/*
 .footer {
     left: 0;
     bottom: 0;
@@ -140,6 +148,7 @@ body, html {
     width:20%;
     height:20%;
 }
+    */
 
 .desc-short {
     color:gray;

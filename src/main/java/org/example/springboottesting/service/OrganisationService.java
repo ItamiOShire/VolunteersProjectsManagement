@@ -25,7 +25,7 @@ public class OrganisationService {
             return null;
         }
 
-        String apartmentNumber = (organisation.getApartmentNumber() == 0) ? String.valueOf(organisation.getApartmentNumber()):"-";
+        String apartmentNumber = (organisation.getApartmentNumber() != 0) ? String.valueOf(organisation.getApartmentNumber()):"-";
 
         organisationDTO.setEmail(organisation.getEmail());
         organisationDTO.setName(organisation.getOrgName());
