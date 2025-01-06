@@ -14,7 +14,7 @@ public class OrganisationDTO {
 
     private String adress;
 
-    private int krsNumber;
+    private String krsNumber;
 
     public String getName() {
         return name;
@@ -64,11 +64,11 @@ public class OrganisationDTO {
         this.adress = adress;
     }
 
-    public int getKrsNumber() {
+    public String getKrsNumber() {
         return krsNumber;
     }
 
-    public void setKrsNumber(int krsNumber) {
+    public void setKrsNumber(String krsNumber) {
         this.krsNumber = krsNumber;
     }
 }

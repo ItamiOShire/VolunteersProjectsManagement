@@ -16,8 +16,8 @@
 }
 
 section.tasks-container, section.projects-container {
-    background-color: rgb(173, 178, 229);
-    background-image: linear-gradient(rgb(173, 178, 229),rgb(115,124,255) );
+    background-color: #d5c8f5;
+    /*background-image: linear-gradient(rgb(173, 178, 229),rgb(115,124,255) );*/
     border-radius: 2em;
     text-align: center;
     height:80%;
@@ -27,8 +27,8 @@ section.tasks-container, section.projects-container {
 }
 
 section.profile-details, section.profile-desc {
-    background-color: rgb(173, 178, 229);
-    background-image: linear-gradient(rgb(173, 178, 229),rgb(115,124,255) );
+    background-color: #d5c8f5;
+    /*background-image: linear-gradient(rgb(173, 178, 229),rgb(115,124,255) );*/
     border-radius: 2em;
     position:relative;
     box-shadow: 0.5em 0.5em 2em rgba(101,85,143,0.80);
@@ -40,7 +40,7 @@ div.profile-header {
 }
 
 div.profile-data {
-    background-color: rgb(247, 242, 250);
+    background-color: rgb(236, 221, 245);
     border-radius: 2em;
     display:grid;
     grid-template-columns: 30% 30% 30%;
@@ -69,15 +69,15 @@ div.profile-data > div {
 }
 
 .task, .project {
-    background-color: rgb(173, 178, 229);
-    background-image: linear-gradient(rgb(193, 196, 237),rgb(116, 180, 210) );
+    background-color: rgb(144 154 255);
+    /*background-image: linear-gradient(rgb(193, 196, 237),rgb(116, 180, 210) );*/
     border-radius: 2em;
     text-align: left;
     padding: 0 0 2em 2em;
 }
 
 .edit-profile-button, .project-desc-button {
-    background-color: rgb(101, 85, 143);
+    background-color: rgb(155, 125, 231);
     border:0;
     height:3rem;
     width:8rem;
@@ -85,6 +85,11 @@ div.profile-data > div {
     color:white;
     cursor: pointer;
     margin: 0em 0em 2em 2em;
+    transition: backgroud-color 0.3s ease;
+}
+
+.project-desc-button:hover {
+    background-color: rgb(131, 102, 204);
 }
 
 .project-desc-button {

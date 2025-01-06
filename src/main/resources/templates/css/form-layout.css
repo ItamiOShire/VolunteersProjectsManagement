@@ -1,6 +1,6 @@
 .form {
-    background-color: rgb(173, 178, 229);
-    background-image: linear-gradient(rgb(173, 178, 229),rgb(115,124,255) );
+    background-color: #d5c8f5;
+    /*background-image: linear-gradient(rgb(173, 178, 229),rgb(115,124,255) );*/
     display:flex;
     flex-direction: column;
     align-items: center;
@@ -43,7 +43,7 @@
 
 .form > input[type="submit"], .form > button, form button{
     color:white;
-    background-color: rgba(101,85,143,1.0);
+    background-color: rgb(155, 125, 231);
     cursor: pointer;
     box-shadow: rgba(0, 0, 0, 0.35) 0px -7px 10px 0px inset;
     transition: background-color 0.3s ease;
@@ -51,7 +51,7 @@
 }
 
 .form > input[type="submit"]:hover, .form > button:hover {
-    background-color: rgb(128, 107, 181);
+    background-color: rgb(131, 102, 204);
 }
 
 .form > label {

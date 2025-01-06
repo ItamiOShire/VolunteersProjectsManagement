@@ -1,6 +1,6 @@
 section.tasks-container {
-    background-color: rgb(173, 178, 229);
-    background-image: linear-gradient(rgb(173, 178, 229),rgb(115,124,255) );
+    background-color: #d5c8f5;
+    /*background-image: linear-gradient(rgb(173, 178, 229),rgb(115,124,255) );*/
     border-radius: 2em;
     text-align: center;
     grid-area: "tasks";
@@ -24,7 +24,7 @@ section.tasks-container {
 
 .task {
     background-color: rgb(173, 178, 229);
-    background-image: linear-gradient(rgb(193, 196, 237),rgb(116, 180, 210) );
+    /*background-image: linear-gradient(rgb(193, 196, 237),rgb(116, 180, 210) );*/
     border-radius: 2em;
     text-align: left;
     padding: 0 0 2em 2em;
@@ -43,6 +43,6 @@ section.tasks-container {
     margin:auto;
 }
 
-.tasks-container > .form {
-    background-image: linear-gradient(rgb(115,124,255),rgb(173, 178, 229) );
+.create-tasks-button {
+    
 }

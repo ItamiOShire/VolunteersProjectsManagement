@@ -1,43 +1,42 @@
 :root {
     /* Main layout */
-    --bgColor:rgb(127, 155, 227);
-    --headerBgColor:rgba(115,124,211,1);
+    --bgColor:#fcf6ef;
+    --headerBgColor:#B2A7D9;
     --headerBgGradientColor: linear-gradient(rgb(173, 178, 229),rgb(115,124,255) );
     --headerBoxShadow:rgba(0, 0, 0, 0.09) 0px 2px 1px,
                       rgba(0, 0, 0, 0.09) 0px 4px 2px,
                       rgba(0, 0, 0, 0.09) 0px 8px 4px,
                       rgba(0, 0, 0, 0.09) 0px 16px 8px,
                       rgba(0, 0, 0, 0.09) 0px 32px 16px;
-    --menuLinksColor:black;
-    --menuLinksBgColor:antiquewhite;
-    --menuProfileButtonsColor:white;
-    --menuProfileButtonsBgColor:rgb(44, 44, 44);
-    --footerBgColor:rgba(115,124,211,1);
+    --headerBorder:3px solid rgb(127, 127, 171);
+    --footerBgColor:#B2A7D9;
     --footerBgGradientColor:linear-gradient(rgb(115,124,255),rgb(173, 178, 229) );
 
 
     /* Projects */
 
-    --projectContainerBgColor:rgb(173, 178, 229);
+    --projectContainerBgColor:#d5c8f5;
     --projectContainerBgGradientColor:linear-gradient(rgb(173, 178, 229),rgb(115,124,255) );
     --projectBoxShadow:0.5em 0.5em 2em rgba(101,85,143,0.80);
     --projectH4Color:gray;
+    --projectButton:rgb(155, 125, 231);
+    --projectButtonHover: rgb(131, 102, 204);
 
     /* Forms */
 
-    --formBgColor:rgb(173, 178, 229);
+    --formBgColor:#d5c8f5;
     --formBgGradientColor:linear-gradient(rgb(173, 178, 229),rgb(115,124,255) );
     --formBoxShadow:0.5em 0.5em 2em rgba(101,85,143,0.80);
     --formInputsBoxShadow:inset rgba(0, 0, 0, 0.31) 3px 2px 5px, 
                         rgba(0, 0, 0, 0.23) 0px 0px 0px 0px inset;
     --formButtonColor:white;
-    --formButtonBgColor:rgba(101,85,143,1.0);
+    --formButtonBgColor:rgb(155, 125, 231);
+    --formButtonBgColorHover: rgb(131, 102, 204);
     --formButtonBoxShadow:rgba(0, 0, 0, 0.35) 0px -7px 10px 0px inset;
-    --formButtonHoverBgColor:rgb(128, 107, 181);
 
     /* Tasks/Volunteers */
 
-    --tasksContainerBgColor:rgb(173, 178, 229);
+    --tasksContainerBgColor:rgb(144 154 255);
     --tasksContainerBgGradientColor:linear-gradient(rgb(173, 178, 229),rgb(115,124,255) );
     --tasksContainerBoxShadow:0.5em 0.5em 2em rgba(101,85,143,0.80);
     --tasksBgColor:antiquewhite;

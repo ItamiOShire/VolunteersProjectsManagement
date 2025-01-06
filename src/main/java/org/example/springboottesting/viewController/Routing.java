@@ -5,7 +5,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 public class Routing implements WebMvcConfigurer {
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/home").setViewName("index");
+       /* registry.addViewController("/home").setViewName("index");
         registry.addViewController("/").setViewName("index");
         registry.addViewController("/login").setViewName("login");
         registry.addViewController("/register").setViewName("register");
@@ -19,6 +19,6 @@ public class Routing implements WebMvcConfigurer {
         registry.addViewController("/organisation/projects/edit/tasks/{id}").setViewName("edit_project_tasks");
         registry.addViewController("/organisation/profile").setViewName("organisation_profile");
         registry.addViewController("/organisation/profile/edit/desc").setViewName("organisation_profile_edit");
-        registry.addViewController("/organisation/project/create").setViewName("create_project");
+        registry.addViewController("/organisation/project/create").setViewName("create_project");*/
     }
 }

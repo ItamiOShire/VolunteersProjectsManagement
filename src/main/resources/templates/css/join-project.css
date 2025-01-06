@@ -6,8 +6,8 @@
 }
 
 section.project-container {
-    background-color: rgb(173, 178, 229);
-    background-image: linear-gradient(rgb(173, 178, 229),rgb(115,124,255) );
+    background-color: #d5c8f5;
+    /*background-image: linear-gradient(rgb(173, 178, 229),rgb(115,124,255) );*/
     display: grid;
     justify-content: center;
     grid-template-columns: 40% 50%;
@@ -42,12 +42,13 @@ section.project-container {
 }
 
 .popup-container {
-    background-color: aliceblue;
+    background-color: #d5c8f5;
     padding:2em;
     position:absolute;
     width:50%;
     top:10%;
     left:25%;
+    border-radius: 2em;
 }
 .mask{
     display:none;
@@ -74,7 +75,7 @@ section.project-container {
 }
 
 .project-join-button:hover{
-    background-color: rgb(128, 107, 181);
+    background-color: rgb(131, 102, 204);
 }
 
 div.popup-buttons-conainter {
@@ -84,7 +85,7 @@ div.popup-buttons-conainter {
 div.popup-buttons-container > button {
     padding:0.5em 2em;
     color:white;
-    background-color: rgba(101,85,143,1.0);
+    background-color: rgb(155, 125, 231);
     cursor: pointer;
     box-shadow: rgba(0, 0, 0, 0.35) 0px -7px 10px 0px inset;
     transition: background-color 0.3s ease;

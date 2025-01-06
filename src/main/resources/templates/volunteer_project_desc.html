@@ -236,7 +236,7 @@
                         
                     });
 
-                }
+                
 
                 const notAttendedTasks = await fetch('http://localhost:8080/api/task/notAttended/volunteer/project/' + projectId, {
                     method: 'GET',
@@ -287,6 +287,7 @@
                     });
 
                 }
+            }
 
             } catch (error) {
                 console.log(error);

@@ -21,8 +21,8 @@
 }
 
 section.project-container {
-    background-color: rgb(173, 178, 229);
-    background-image: linear-gradient(rgb(173, 178, 229),rgb(115,124,255) );
+    background-color: #d5c8f5;
+    /*background-image: linear-gradient(rgb(173, 178, 229),rgb(115,124,255) );*/
     display: grid;
     justify-content: center;
     grid-template-columns: 50% 45%;
@@ -56,8 +56,8 @@ section.project-container {
 
 
 section.tasks-container, section.volunteers-container {
-    background-color: rgb(173, 178, 229);
-    background-image: linear-gradient(rgb(173, 178, 229),rgb(115,124,255) );
+    background-color: #d5c8f5;
+    /*background-image: linear-gradient(rgb(173, 178, 229),rgb(115,124,255) );*/
     border-radius: 2em;
     text-align: center;
     height:100%;
@@ -80,8 +80,8 @@ section.tasks-container, section.volunteers-container {
 }
 
 .task, .volunteer {
-    background-color: rgb(173, 178, 229);
-    background-image: linear-gradient(rgb(193, 196, 237),rgb(116, 180, 210) );
+    background-color: rgb(144 154 255);
+    /*background-image: linear-gradient(rgb(193, 196, 237),rgb(116, 180, 210) );*/
     border-radius: 2em;
     text-align: left;
     padding: 0 0 2em 2em;

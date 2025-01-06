@@ -17,7 +17,7 @@ public class Project {
     private String title;
 
     @JsonProperty("desc-long")
-    @Column(name = "descr")
+    @Column(name = "descr", length = 10000)
     private String desc;
 
     private String imgPath;

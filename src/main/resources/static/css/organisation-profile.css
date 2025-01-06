@@ -5,15 +5,20 @@ h4 {
 .main {
     display:flex;
     flex-direction: column;
+    height:100%;
 }
 
 section.profile-details, section.profile-desc {
-    background-color: rgb(173, 178, 229);
-    background-image: linear-gradient(rgb(173, 178, 229),rgb(115,124,255) );
+    background-color: #d5c8f5;
+    /*background-image: linear-gradient(rgb(173, 178, 229),rgb(115,124,255) );*/
     border-radius: 2em;
     position:relative;
     box-shadow: 0.5em 0.5em 2em rgba(101,85,143,0.80);
     margin:2em 4em;
+}
+
+section.profile-desc {
+    height:50%;
 }
 
 div.profile-header {
@@ -21,7 +26,7 @@ div.profile-header {
 }
 
 div.profile-data {
-    background-color: rgb(247, 242, 250);
+    background-color: rgb(241, 224, 250);
     border-radius: 2em;
     display:grid;
     grid-template-columns: 30% 30% 30%;
@@ -40,6 +45,7 @@ div.desc-container {
     grid-template-columns: 60% 40%;
     align-items: center;
     justify-content: center;
+    height:100%;
 }
 div.img-container {
     height:80%;
@@ -64,12 +70,12 @@ div.text-container {
 div.text-container > button.profile-edit-button {
     display:block;
     width:40%;
-    height:10%;
+    height:3em;
     position:absolute;
     right:0;
     bottom:0;
     color:white;
-    background-color: rgba(101,85,143,1.0);
+    background-color: rgb(155, 125, 231);
     cursor: pointer;
     box-shadow: rgba(0, 0, 0, 0.35) 0px -7px 10px 0px inset;
     transition: background-color 0.3s ease;
@@ -77,3 +83,6 @@ div.text-container > button.profile-edit-button {
     border:0;
 }
 
+div.text-container > button.profile-edit-button:hover {
+    background-color: rgb(131, 102, 204);
+}

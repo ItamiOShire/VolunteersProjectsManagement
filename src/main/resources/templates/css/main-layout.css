@@ -4,23 +4,25 @@
 
 body, html {
     margin:0;
-    padding:0;
+    padding:0;   
     width:100%;
     height:100%;
-    background-color:rgb(127, 155, 227);
+    background-color:#fcf6ef;
 }
+
 
 .header {
     top:0;
-    background-color: rgba(115,124,211,1);
-    background-image: linear-gradient(rgb(173, 178, 229),rgb(115,124,255) );
+    background-color: #B2A7D9;
+   
     height:80px;
     border-radius: 0 0 50px 50px;
     display:flex;
     align-items: center;
     justify-content: flex-start;
     position:relative;
-    box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+    border-bottom: 3px solid rgb(127, 127, 171)
+   /* box-shadow: rgba(238, 221, 255, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;*/
 }
 
 .logo-container {
@@ -33,9 +35,10 @@ body, html {
 }
 
 .logo-container > img {
-    width:70%;
+    width: 65%;
     height:90%;
     margin-left:2em;
+    margin-top:4px;
 }
 
 .nav-menu {
@@ -101,42 +104,6 @@ body, html {
     box-shadow: rgba(0, 0, 0, 0.35) 70px 0px 36px -28px inset;
 }
 
-/*.nav-menu {
-    flex-basis:92%;
-    display: flex;
-}
-
-.nav-menu a {
-    color:black;
-    text-align: center;
-    text-decoration: none;
-    padding:0.6em 2em;
-    background-color: rgba(202,202,202,1);
-    border-radius:8px;
-    margin:0.6em;
-    width:20%;
-}
-
-.nav-links-container{
-    display:flex;
-    flex-basis: 80%;
-    justify-content: center;
-
-}
-
-.sign-in-up-buttons{
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    margin-right:4em;
-}
-
-.sign-in-up-buttons a {
-    width:100%;
-    color:white;
-    background-color: rgb(44, 44, 44);
-}*/
-
 .section-line {
     width:80%;
     margin-top: 2em;
@@ -144,16 +111,16 @@ body, html {
 }
 
 .footer {
-    left: 0;
     bottom: 0;
     width: 100%;
-    background-color: rgba(115,124,211,1);
-    background-image: linear-gradient(rgb(115,124,255),rgb(173, 178, 229) );
+    background-color: #B2A7D9;
+   /* background-image: linear-gradient(rgb(115,124,255),rgb(173, 178, 229) );*/
     height:20%;
     display:grid;
     justify-content: center;
     grid-template-columns: 25% 25% 25% 25%;
     gap:10px;
+    border-top: 3px solid rgb(127, 127, 171)
 }
 
 .footer > div {

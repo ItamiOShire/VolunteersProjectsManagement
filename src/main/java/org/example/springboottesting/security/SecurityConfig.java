@@ -42,7 +42,7 @@ public class SecurityConfig{
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
-                        .maximumSessions(1) // Ograniczenie liczby sesji na użytkownika
+                        .maximumSessions(1)
                         .sessionRegistry(sessionRegistry())
                 );
 

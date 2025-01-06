@@ -1,6 +1,6 @@
 .project-container {
-    background-color: rgb(173, 178, 229);
-    background-image: linear-gradient(rgb(173, 178, 229),rgb(115,124,255) );
+    background-color: #d5c8f5;
+    /*background-image: linear-gradient(rgb(173, 178, 229),rgb(115,124,255) );*/
     display: grid;
     justify-content: center;
     grid-template-columns: 40% 50%;

@@ -16,7 +16,7 @@ public class Organisation {
 
     @JsonProperty("krs")
     @Column(name = "KRS_number")
-    private int krsNumber;
+    private String krsNumber;
 
     private String street;
 
@@ -60,11 +60,11 @@ public class Organisation {
         this.orgName = orgName;
     }
 
-    public int getKRSNumber() {
+    public String getKRSNumber() {
         return krsNumber;
     }
 
-    public void setKRSNumber(int KRSNumber) {
+    public void setKRSNumber(String KRSNumber) {
         this.krsNumber = KRSNumber;
     }
 

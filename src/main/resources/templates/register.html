@@ -210,8 +210,9 @@
                 });
 
                 if(response.ok){
-                    const result = await response.text();
-                    console.log('Odpowiedz: ',result);
+                    
+                    goToLogin();
+
                 } else {
                     console.log("Blad odpowiedzi serwera")
                 }
@@ -236,8 +237,6 @@
 
             const body = {organisation, user};
 
-            console.log(body);
-
             try {
                 const response = await fetch('http://localhost:8080/api/register/organisation', {
                     method: 'POST',
@@ -248,14 +247,19 @@
                 });
 
                 if(response.ok){
-                    const result = await response.text();
-                    console.log('Odpowiedz: ',result);
+                    
+                    goToLogin();
+
                 } else {
                     console.log("Blad odpowiedzi serwera")
                 }
             } catch (error) {
                 console.log('Error: ', error)
             }
+        }
+
+        function goToLogin() {
+            location.href = "http://localhost:8080/login"
         }
 
             
