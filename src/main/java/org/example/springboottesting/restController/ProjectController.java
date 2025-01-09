@@ -80,6 +80,17 @@ public class ProjectController {
         return ResponseEntity.ok(projects);
     }
 
+    @GetMapping("organisation{id}/all")
+    public ResponseEntity<List<Project>> getAllOrganisation(@PathVariable long id) {
+        List<Project> projects = projectService.getProjectsByOrganisationId(
+                Integer.parseInt(String.valueOf(id))
+        );
+        for (Project project : projects) {
+            System.out.println(project);
+        }
+        return ResponseEntity.ok(projects);
+    }
+
     @GetMapping("/volunteer/all")
     public ResponseEntity<List<ProjectDTO>> getAllVolunteer(HttpSession session) {
 

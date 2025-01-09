@@ -2,6 +2,8 @@ package org.example.springboottesting.DTO;
 
 public class OrganisationDTO {
 
+    private int id;
+
     private String name;
 
     private String type;
@@ -15,6 +17,34 @@ public class OrganisationDTO {
     private String adress;
 
     private String krsNumber;
+
+    private String desc;
+
+    private String imgPath;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
+    public String getImgPath() {
+        return imgPath;
+    }
+
+    public void setImgPath(String imgPath) {
+        this.imgPath = imgPath;
+    }
 
     public String getName() {
         return name;

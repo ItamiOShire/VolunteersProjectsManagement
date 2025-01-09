@@ -2,18 +2,25 @@ package org.example.springboottesting.service;
 
 import org.example.springboottesting.model.Organisation;
 import org.example.springboottesting.DTO.OrganisationDTO;
+import org.example.springboottesting.model.OrganisationProfile;
+import org.example.springboottesting.repository.OrganisationProfileRepository;
 import org.example.springboottesting.repository.OrganisationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class OrganisationService {
 
     private final OrganisationRepository organisationRepository;
+    private final OrganisationProfileRepository organisationProfileRepository;
 
     @Autowired
-    public OrganisationService(OrganisationRepository organisationRepository) {
+    public OrganisationService(OrganisationRepository organisationRepository, OrganisationProfileRepository organisationProfileRepository) {
         this.organisationRepository = organisationRepository;
+        this.organisationProfileRepository = organisationProfileRepository;
     }
 
     public OrganisationDTO getOrganisationDetails(Long id) {
@@ -40,5 +47,32 @@ public class OrganisationService {
                 organisation.getTown());
 
         return organisationDTO;
+    }
+
+    public List<OrganisationDTO> getOrganisationSDetails() {
+        List<Organisation> organisations = organisationRepository.findAll();
+
+        List<OrganisationProfile> organisationProfiles = organisationProfileRepository.findAll();
+
+        List<OrganisationDTO> organisationDTOS = new ArrayList<>();
+
+        for (Organisation organisation : organisations) {
+            OrganisationDTO organisationDTO = new OrganisationDTO();
+
+            organisationDTO.setName(organisation.getOrgName());
+            organisationDTO.setType(organisation.getType());
+
+            for (OrganisationProfile organisationProfile : organisationProfiles) {
+                if(organisation.getId() == organisationProfile.getOrganisationId()) {
+                    organisationDTO.setId(organisationProfile.getOrganisationId());
+                    organisationDTO.setImgPath(organisationProfile.getImgPath());
+                    organisationDTO.setDesc(organisationProfile.getDesc());
+                    break;
+                }
+            }
+            organisationDTOS.add(organisationDTO);
+        }
+
+        return organisationDTOS;
     }
 }

@@ -14,6 +14,15 @@ public class RoutingController {
         return new ModelAndView("index");
     }
 
+    @GetMapping("/contact")
+    public ModelAndView getContactView() {return  new ModelAndView("contact");}
+
+    @GetMapping("/organisation/{id}/profile")
+    public ModelAndView getOrganisationProfile(@PathVariable int id) {return new ModelAndView("organisation_light_profile");}
+
+    @GetMapping("/organisations")
+    public ModelAndView getOrganisations() {return new ModelAndView("organisations");}
+
     @GetMapping("/login")
     public ModelAndView getLoginView() {
         return new ModelAndView("login");

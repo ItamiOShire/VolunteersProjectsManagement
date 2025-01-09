@@ -44,6 +44,21 @@ public class OrganisationProfileController {
 
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<OrganisationProfile> getOrganisationProfile(@PathVariable long id) {
+
+        OrganisationProfile fetchedOrganisationProfile = organisationProfileService.getOrganisationProfile(String.valueOf(id));
+
+        if (fetchedOrganisationProfile != null) {
+
+            return ResponseEntity.ok(fetchedOrganisationProfile);
+
+        }
+
+        return ResponseEntity.noContent().build();
+
+    }
+
     @PostMapping("/")
     public ResponseEntity<String> saveOrganisationProfile(@RequestParam("desc") String desc,
                                                           @RequestParam("img") MultipartFile img,
