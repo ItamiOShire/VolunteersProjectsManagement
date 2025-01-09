@@ -1,11 +1,11 @@
-.projects-container{
+.organisation-container {
     display:flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-div.project {
+.organisation {
     background-color: #d5c8f5;
     /*background-image: linear-gradient(rgb(173, 178, 229),rgb(115,124,255) );*/
     display:grid;
@@ -18,7 +18,7 @@ div.project {
     position:relative;
 }
 
-.project-img {
+.organisation-img {
     width:min(300px, 100%);
     height:min(300px, 100%);
     border-radius: 2em;
@@ -29,7 +29,7 @@ div.project {
     position:relative;
 }
 
-.project-join-button, .project-desc-button {
+.organisation-button {
     background-color: rgb(155, 125, 231);
     border:0;
     height:3rem;
@@ -43,11 +43,11 @@ div.project {
     transition: bacground-color 0.3s ease;
 }
 
-.project-join-button:hover, .project-desc-button:hover {
+.organisation-button:hover {
     background-color: rgb(131, 102, 204);
 }
 
-.project-short-desc {
+.organisation-desc {
     display: -webkit-box;      
     -webkit-box-orient: vertical; 
     overflow: hidden;           

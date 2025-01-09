@@ -1,34 +1,58 @@
-.project-container {
+.projects-container{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+div.project {
     background-color: #d5c8f5;
     /*background-image: linear-gradient(rgb(173, 178, 229),rgb(115,124,255) );*/
-    display: grid;
-    justify-content: center;
+    display:grid;
     grid-template-columns: 40% 50%;
-    gap:1em;
+    padding:2em;
     border-radius: 2em;
-    min-width:600px;
-    max-width:800px;
-    box-shadow: 0.5em 0.5em 2em rgba(101,85,143,0.80);
-}
-
-.text-container {
-    margin:2em 0;
-}
-
-.img-container {
-    text-align: center;
-    margin:auto;
-    height:80%;
-    
+    width:60%;
+    min-width: 800px;
+    margin:1.5rem 0;
+    position:relative;
 }
 
 .project-img {
     width:min(300px, 100%);
     height:min(300px, 100%);
     border-radius: 2em;
-    object-fit: contain;
+    object-fit: fill;
 }
 
-.project-short-desc{
-    color:gray;
+.text-container {
+    position:relative;
+}
+
+.project-join-button, .project-desc-button {
+    background-color: rgb(155, 125, 231);
+    border:0;
+    height:3rem;
+    width:8rem;
+    border-radius: 2em;
+    color:white;
+    position:absolute;
+    right:5%;
+    bottom:5%;
+    cursor: pointer;
+    transition: bacground-color 0.3s ease;
+}
+
+.project-join-button:hover, .project-desc-button:hover {
+    background-color: rgb(131, 102, 204);
+}
+
+.project-short-desc {
+    display: -webkit-box;      
+    -webkit-box-orient: vertical; 
+    overflow: hidden;           
+    -webkit-line-clamp: 5;      
+    text-overflow: ellipsis; 
+    max-height: 300px;
+    white-space: normal;
 }

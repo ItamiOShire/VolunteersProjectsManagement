@@ -5,7 +5,7 @@ h4 {
 .main {
     display:flex;
     flex-direction: column;
-    height:100%;
+    justify-content: center;
 }
 
 section.profile-details, section.profile-desc {
@@ -48,14 +48,14 @@ div.desc-container {
     height:100%;
 }
 div.img-container {
-    height:80%;
     text-align: center;
 }
 div.img-container > img {
-    width:80%;
-    height:100%;
-    object-fit: cover;
-    border-radius:2em;
+    width:min(300px, 100%);
+    height:min(300px, 100%);
+    border-radius: 2em;
+    object-fit: fill;
+    margin: 1.5em 0;
 }
 
 div.text-container {

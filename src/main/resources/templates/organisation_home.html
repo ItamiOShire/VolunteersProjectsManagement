@@ -56,17 +56,20 @@
     <footer class="footer">
 
         <div class="footer-col1"><img src="/images/logotst.png" alt="logo"></div>
-        <div class="footer-col2">col2</div>
-        <div class="footer-col3">col3</div>
-        <div class="footer-col4">col4</div>
+        <div class="footer-col2"></div>
+        <div class="footer-col3"></div>
+        <div class="footer-col4"></div>
 
     </footer>
 
 
     <script defer>
 
-        var root1 = document.getElementsByClassName("projects-container")[0];
+        
         async function getProjects() {
+
+            var root1 = document.getElementsByClassName("projects-container")[0];
+            
             try {
                 const response = await fetch('http://localhost:8080/api/project/organisation/all', {
                     method: 'GET',
