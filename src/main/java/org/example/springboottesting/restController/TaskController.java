@@ -119,12 +119,7 @@ public class TaskController {
 
         List<Task> tasks = taskService.getVolunteersSuggestedTasks(session.getAttribute("id").toString(), id);
 
-        if (!tasks.isEmpty()) {
-            return ResponseEntity.ok(tasks);
-        }
-
-        return ResponseEntity.notFound().build();
-
+        return ResponseEntity.ok(tasks);
     }
 
     @PutMapping("{taskId}/suggested/volunteer")
@@ -133,7 +128,7 @@ public class TaskController {
         boolean isSaved = taskService.saveSuggestedTask(taskId, session.getAttribute("id").toString());
 
         if (isSaved) {
-            return ResponseEntity.ok("Zgłoszono chęć uczestniczenia");
+            return ResponseEntity.ok(" - Zgłoszono chęć uczestniczenia");
         }
 
         return ResponseEntity.notFound().build();

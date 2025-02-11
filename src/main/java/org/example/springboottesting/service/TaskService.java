@@ -85,7 +85,8 @@ public class TaskService {
 
             Set<Task> volunteerTasks = volunteer.getTasks();
 
-            List<Task> sortedTasks = volunteerTasks.stream().sorted((o1, o2) -> o1.getDeadline().compareTo(o2.getDeadline())).toList();
+            List<Task> sortedTasks = volunteerTasks.stream().sorted(
+                    (o1, o2) -> o1.getDeadline().compareTo(o2.getDeadline())).toList();
 
             return sortedTasks;
         }

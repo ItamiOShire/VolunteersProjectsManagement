@@ -38,9 +38,37 @@ public class SecurityConfig{
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/login", "/api/auth/redirect", "/api/auth/current-user-id", "/**", "/swagger-ui/index.html", "/css/**", "/images/**").permitAll()
+                        .requestMatchers(
+                                "/**",
+                                "/contact",
+                                "/home",
+                                "/login",
+                                "/register",
+                                "/api/login/**",
+                                "/api/register/**",
+                                "/css/**",
+                                "/images/**",
+                                "/src/**",
+                                "/organisations",
+                                "/organisation/{id}/profile",
+                                "/volunteer/projects",
+                                "/api/project/search/",
+                                "/api/project/all",
+                                "/api/organisation/all").permitAll()
+                        .requestMatchers(
+                                "/volunteer/**",
+                                "/api/project/join/**",
+                                "/api/volunteer/**",
+                                "/api/task/**").hasRole("VOLUNTEER")
+                        .requestMatchers(
+                                "/organisation/**",
+                                "/api/task/**",
+                                "/api/tag/**",
+                                "/api/volunteer/**").hasRole("ORGANISATION")
                         .anyRequest().authenticated()
-                )
+                ).formLogin(form -> form
+                        .loginPage("/login")
+                        .permitAll())
                 .sessionManagement(session -> session
                         .maximumSessions(1)
                         .sessionRegistry(sessionRegistry())

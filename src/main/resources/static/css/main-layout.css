@@ -115,7 +115,7 @@ body, html {
     width: 100%;
     background-color: #B2A7D9;
    /* background-image: linear-gradient(rgb(115,124,255),rgb(173, 178, 229) );*/
-    height:20%;
+    height:25%;
     display:grid;
     justify-content: center;
     grid-template-columns: 25% 25% 25% 25%;

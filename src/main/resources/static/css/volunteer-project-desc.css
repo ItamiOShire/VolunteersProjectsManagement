@@ -51,6 +51,17 @@ section.tasks-container {
     box-shadow: 0.5em 0.5em 2em rgba(101,85,143,0.80);
 }
 
+.join-task {
+    color:white;
+    background-color: rgb(155, 125, 231);
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px -7px 10px 0px inset;
+    transition: background-color 0.3s ease;
+    border-radius:0.5em;
+    margin:0.5em 0;
+    border:0;
+}
+
 .tasks {
     background-color: antiquewhite;
     border-radius: 2em 0 0 2em ;

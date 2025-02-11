@@ -23,7 +23,9 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
                     ON vt.taskID = t.ID AND vt.volunteerID = v.ID
                     WHERE vp.volunteerID = :volunteerId AND vp.projectID = :projectId
 """, nativeQuery = true)
-    List<Task>getTasksByProjectIdAndVolunteerId(@Param("projectId")int projectId,@Param("volunteerId") int volunteerId);
+    List<Task>getTasksByProjectIdAndVolunteerId(
+            @Param("projectId")int projectId,
+            @Param("volunteerId") int volunteerId);
 
     @Query(value = """
 
@@ -42,8 +44,14 @@ SELECT t.* FROM Volunteer v
 """, nativeQuery = true)
     List<Task> getTasksByProjectIdAndVolunteerIdNotAttendedByVolunteer(@Param("projectId")int projectId, @Param("volunteerId") int volunteerId);
 
-    @Query("SELECT v.suggestedTasks FROM Volunteer v JOIN v.projects p WHERE v.id = :volunteerId AND p.id = :projectId")
-    List<Task> getVolunteerSuggestedTasksByVolunteerIdAndProjectId(@Param("volunteerId") int volunteerId, @Param("projectId") int projectId);
+    @Query("SELECT v.suggestedTasks " +
+           "FROM Volunteer v " +
+           "JOIN v.projects p " +
+           "WHERE v.id = :volunteerId " +
+           "AND p.id = :projectId")
+    List<Task> getVolunteerSuggestedTasksByVolunteerIdAndProjectId(
+            @Param("volunteerId") int volunteerId,
+            @Param("projectId") int projectId);
 
 }
 

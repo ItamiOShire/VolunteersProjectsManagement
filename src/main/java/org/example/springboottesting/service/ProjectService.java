@@ -51,9 +51,7 @@ public class ProjectService {
 
     public List<Project> getAllProjects() {
 
-        List<Project> projects = projectRepository.findAll();
-
-        return projectRepository.findAll();
+        return projectRepository.findAllI();
     }
 
     public List<Project> getProjectsByOrganisationId(int id) {

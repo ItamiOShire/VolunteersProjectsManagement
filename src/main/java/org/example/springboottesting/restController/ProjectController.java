@@ -140,8 +140,8 @@ public class ProjectController {
         if (img.getSize() != 0L) {
 
             String fileName = UUID.randomUUID().toString() + ".jpg";
-            filePath = "D:\\school\\sem7\\inzynierka\\temp\\SpringBootTesting\\src\\main\\resources\\static\\images\\" +fileName;
-            filePathToWrite = "\\images\\" + fileName;
+            filePath = "D:\\school\\sem7\\inzynierka\\temp\\SpringBootTesting\\src\\main\\resources\\static\\images\\" +"d3b605a7-dc53-4855-a6a8-6940151a00cc.jpg";
+            filePathToWrite = "\\images\\" + "d3b605a7-dc53-4855-a6a8-6940151a00cc.jpg";
 
         }
 

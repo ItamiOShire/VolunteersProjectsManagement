@@ -9,7 +9,11 @@ import java.util.List;
 import java.util.Set;
 
 public interface ProjectRepository extends JpaRepository<Project, Long> {
+
     List<Project> findByOrganisationId(int organisationId);
+
+    @Query("SELECT p FROM Project p WHERE p.id > 27")
+    List<Project> findAllI();
 
     @Query("SELECT p FROM Project p JOIN p.volunteers v ON v.id = :volunteerId")
     List<Project> findByVolunteerId(@Param("volunteerId")Long volunteerId);
